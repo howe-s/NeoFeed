@@ -1,13 +1,13 @@
 # utils/neoFeed.py
-
 import requests
+from config import API_KEY
 
 def neo():
     url = 'https://api.nasa.gov/neo/rest/v1/feed'
     params = {
         'start_date': '2015-09-07',
         'end_date': '2015-09-08',
-        'api_key': 'cYZKJFzXo8bKntujkETJSMes49zOiDPMuqQHKSVN'  # Use your API key here
+        'api_key': API_KEY 
     }
     headers = {'accept': 'application/json'}
 
