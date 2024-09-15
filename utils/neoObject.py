@@ -4,7 +4,7 @@ from config import API_KEY
 import json
 
 def neoObject(identifier): 
-    print(identifier)
+    # print(identifier)
     url = f'https://api.nasa.gov/neo/rest/v1/neo/{identifier}'
     params = {
         'api_key': API_KEY 

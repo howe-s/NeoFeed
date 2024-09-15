@@ -14,17 +14,16 @@ def neoData():
     data = neo()  # Call the function and fetch data
 
     return jsonify(data=data)  # Include data in the response
-data = {}
+
 @app.route('/api/neoObject', methods=['POST', 'GET'])
 def neo_identifier():
-    data = request.get_json()
-    identifier = data['id']
+    response = request.get_json()
+    identifier = response['id']
     data = neoObjectDataStructure(identifier)
-    print(type(data))
-    print(data)
     if data:
-        # print(data)
-        return jsonify(data) # Return the fetched data immediately
+        print(type(jsonify(data)))
+        print(jsonify(data))
+        return jsonify(data=data) 
     else:
         return None
 
