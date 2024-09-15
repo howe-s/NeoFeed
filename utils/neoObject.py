@@ -1,5 +1,7 @@
 import requests
+from flask import jsonify
 from config import API_KEY
+import json
 
 def neoObject(identifier): 
     print(identifier)
@@ -17,4 +19,18 @@ def neoObject(identifier):
 
     
     return response
+
+all_approaches = []
+
+def neoObjectDataStructure(identifier):  
+    data = neoObject(identifier)
+    # print('neoObjectStructure', data)
+    for approach in data['close_approach_data']:
+        # print(approach)
+        all_approaches.append(approach)
+ 
+    result = json.dumps(all_approaches, indent=2)
+
+    return result
+
 
