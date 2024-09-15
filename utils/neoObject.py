@@ -15,15 +15,24 @@ def neoObject(identifier):
 
     return response
 
-all_approaches = []
+# all_approaches = []
 
-def neoObjectDataStructure(identifier):  
-    data = neoObject(identifier)    
-    for approach in data['close_approach_data']:        
+def neoObjectDataStructure(identifier):
+    data = neoObject(identifier)
+    all_approaches = []
+    
+    # Collect all close_approach_data entries
+    for approach in data['close_approach_data']:
         all_approaches.append(approach)
- 
-    result = json.dumps(all_approaches, indent=2)
+    
+    # Sort the all_approaches list by epoch_date_close_approach
+    sorted_approaches = sorted(all_approaches, key=lambda x: x['close_approach_date'], reverse=True)
+
+    
+    # Convert the sorted list to JSON
+    result = json.dumps(sorted_approaches, indent=2)
 
     return result
+
 
 

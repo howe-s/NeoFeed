@@ -21,7 +21,8 @@ def neo_identifier():
     identifier = response['id']
     data = neoObjectDataStructure(identifier)
     if data:
-        return jsonify(data=data) 
+        # return data
+        return jsonify(data=data, identifier=identifier) 
     else:
         return jsonify({"error": "No data found"}), 404
 
