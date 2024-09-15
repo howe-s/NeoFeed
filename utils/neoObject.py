@@ -26,7 +26,7 @@ def neoObjectDataStructure(identifier):
         all_approaches.append(approach)
     
     # Sort the all_approaches list by epoch_date_close_approach
-    sorted_approaches = sorted(all_approaches, key=lambda x: x['close_approach_date'], reverse=True)
+    sorted_approaches = sorted(all_approaches, key=lambda x: x['epoch_date_close_approach'], reverse=True)
 
     
     # Convert the sorted list to JSON
