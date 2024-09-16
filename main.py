@@ -9,9 +9,12 @@ from utils.neoObjectApproach import neoObjectDataStructure
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/neo', methods=['GET'])
+@app.route('/api/neo', methods=['GET', 'POST'])
 def neoData():
-    data = neo()  # Call the function and fetch data
+    ## we can make these modular
+    startDate = '2024-09-07'
+    endDate =   '2024-09-08'
+    data = neo(startDate, endDate)  # Call the function and fetch data
 
     return jsonify(data=data)  # Include data in the response
 
