@@ -3,11 +3,11 @@ import requests
 from config import API_KEY
 import time
 
-def neo(startDate, endDate):
+def neo(start_date, end_date):
     url = 'https://api.nasa.gov/neo/rest/v1/feed'
     params = {
-        'start_date': startDate,
-        'end_date': endDate,
+        'start_date': start_date,
+        'end_date': end_date,
         'api_key': API_KEY 
     }
     headers = {'accept': 'application/json'}

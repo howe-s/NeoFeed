@@ -1,6 +1,6 @@
 
 from flask import request, jsonify
-from utils.neoObject import neoObject
+from utils.neoObjectApproach import neoObject
 
 def neoObjectData(identifier):  
     stored_data = neoObject(identifier)
