@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from utils.neoFeed import neo
 from config import API_KEY
-from utils.neoObject import neoObjectDataStructure
+from utils.neoObjectApproach import neoObjectDataStructure
 
 app = Flask(__name__)
 CORS(app)
@@ -21,9 +21,9 @@ def neo_identifier():
     identifier = response['id']
     data = neoObjectDataStructure(identifier)
     if data:
-        print(type(data))
+        # print(type(data))
         # return data
-        print(jsonify(data))
+        # print(jsonify(data))
         return jsonify(data=data, identifier=identifier) 
     else:
         return jsonify({"error": "No data found"}), 404

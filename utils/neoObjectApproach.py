@@ -19,20 +19,27 @@ def neoObject(identifier):
 
 def neoObjectDataStructure(identifier):
     data = neoObject(identifier)
+    # print(data)
     all_approaches = []
-    
+    orbital_data = []
     # Collect all close_approach_data entries
     for approach in data['close_approach_data']:
         all_approaches.append(approach)
-    
+    for orbit in data['orbital_data']:
+        orbital_data.append(orbit)
+        # print(orbit)
+        
     # Sort the all_approaches list by epoch_date_close_approach
     sorted_approaches = sorted(all_approaches, key=lambda x: x['epoch_date_close_approach'], reverse=True)
 
     
-    # Convert the sorted list to JSON
-    result = json.dumps(sorted_approaches, indent=2)
+    combined_data = {
+    "sorted_approaches": sorted_approaches,
+    "orbital_data": orbital_data
+    }
+
+    result = json.dumps(combined_data, indent=2)
 
     return result
-
 
 
