@@ -20,14 +20,18 @@ def neoObject(identifier):
 
 def neoObjectDataStructure(identifier):
     data = neoObject(identifier)
-    # print(data)
     all_approaches = []
+    past_approaches = []
+    future_approaches = []
     orbital_data = []
     current_epoch_ms = int(time.time() * 1000)
     # Collect all close_approach_data entries
     for approach in data['close_approach_data']:
-        if approach['epoch_date_close_approach'] >  current_epoch_ms:
             all_approaches.append(approach)
+            if approach['epoch_date_close_approach'] >  current_epoch_ms:
+                future_approaches.append(approach)
+            if approach['epoch_date_close_approach'] <  current_epoch_ms:
+                past_approaches.append(approach)
     
     orbital_data.append(data['orbital_data'])
     # print(orbital_data)
@@ -38,6 +42,8 @@ def neoObjectDataStructure(identifier):
     
     combined_data = {
     "sorted_approaches": all_approaches,
+    "future_approaches": future_approaches,
+    "past_approaches": past_approaches,
     "orbital_data": orbital_data
     }
 
