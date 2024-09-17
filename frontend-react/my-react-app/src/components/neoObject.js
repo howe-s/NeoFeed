@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import sanitizeHtml from 'sanitize-html';
 import '../static/neoObject.css';
+import PlotlyChart from './PlotlyChart';
 
 const NeoObject = ({ selectedObject }) => {
     const [approachData, setApproachData] = useState(null);
@@ -47,7 +48,7 @@ const NeoObject = ({ selectedObject }) => {
             nowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, [approachData]); // Trigger scroll when approachData changes
-    console.log(orbitImage)
+
     if (approachData && Array.isArray(approachData)) {
         return (
             <div id="user-obj-data-wrapper">
@@ -115,8 +116,11 @@ const NeoObject = ({ selectedObject }) => {
                             </div>
                         ))}
                     </div>
+                </div>  
+                <div>
+                    <h1>My Plotly Chart</h1>
+                    <PlotlyChart chartData={orbitImage} />
                 </div>
-
             </div>
         );
     } else {
