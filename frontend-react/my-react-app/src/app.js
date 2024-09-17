@@ -1,6 +1,6 @@
 // App.js
 import React, { useState } from 'react';
-import Neo from './components/neo';
+import Neo from './components/Neo';
 import './static/App.css'; // Your styles here
 import DateRangePicker from './components/DateRangePicker'; // Ensure correct import
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../static/neo.css';
-import NeoObject from './neoObject';
+import NeoObject from './NeoObject';
 
 function Neo({ dateRange }) {
   const [message, setMessage] = useState('');
