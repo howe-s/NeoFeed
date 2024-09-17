@@ -7,7 +7,7 @@
   padding: 10px;
 }
 
-// ... other styles
+
 
 .obj-orbit-container {
   grid-column: 1; /* First column */
@@ -23,8 +23,8 @@
 }
 
 .large-chart {
-  width: 100%; /* Full width within the container */
-  height: 800px; /* Set the desired height */
+  width: 100%;
+  height: 1000px; /* Increase the height to make the chart larger */
 }
 
 .user-approach-container {
@@ -52,3 +52,4 @@ p strong {
 .orbit-chart {
   padding-right: 30px;
 }
+
