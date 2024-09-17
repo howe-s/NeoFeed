@@ -81,6 +81,9 @@ const NeoObject = ({ selectedObject }) => {
                             <p><strong>Equinox:</strong> {item.equinox}</p>             
                         </div>
                     ))}
+                </div>     
+                <div className="orbit-chart">
+                    <PlotlyChart chartData={orbitImage} className="large-chart" />
                 </div>
                 <div className="user-approach-container">
                     <div className="past-approach-container">
@@ -115,13 +118,12 @@ const NeoObject = ({ selectedObject }) => {
                                 <p><strong>Relative Velocity (miles/h):</strong> {item.relative_velocity.miles_per_hour}</p>
                             </div>
                         ))}
+                        
                     </div>
                 </div>  
-                <div>
-                    <h1>My Plotly Chart</h1>
-                    <PlotlyChart chartData={orbitImage} />
-                </div>
+                
             </div>
+            
         );
     } else {
         return null;

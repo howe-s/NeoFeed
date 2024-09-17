@@ -79,7 +79,7 @@ def plot_orbit(orbital_data_list):
         ),
         title='Orbits of Objects around the Sun'
     )
-    fig.show()
+    # fig.show()
     # Convert the figure to JSON
     fig_json = fig.to_dict()
 

@@ -1,37 +1,54 @@
 #user-obj-data-wrapper {
-    /* styles for the main wrapper element */
-  }
-  #user-obj-data-wrapper {
-  display: grid; /* Set the wrapper to use a grid layout */
-  grid-template-columns: 1fr auto; /* Define columns: 1st takes 1 fraction of space, 2nd takes remaining space */
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; /* Equal height rows */
+  gap: 10px;
+  height: 100vh;
+  padding: 10px;
 }
-  
-  .obj-orbit-data-container,
-  .user-approach-container {
-    overflow-y: scroll;
-    max-height: 100vh;
-    margin-left: 10px;
-  }
 
-  .obj-orbit-container {
-    overflow-y: hidden;
-  }
-  
-  .obj-orbit-data,
-  .past-approach-data,
-  .future-approach-data {
-    /* styles for individual data sections */
-    border: 1px solid #ddd; /* add a light border */
-    padding: 0.5rem 1rem; /* add some padding */
-    margin-bottom: 0.5rem; /* add space between sections */
-  }
-  
-  p {
-    /* styles for all paragraphs */
-    margin: 0.25rem 0; /* adjust margin for readability */
-  }
-  
-  /* Optional: Add font styles for a cleaner look */
-  p strong {
-    font-weight: bold; /* bold the labels */
-  }
+// ... other styles
+
+.obj-orbit-container {
+  grid-column: 1; /* First column */
+  overflow-y: hidden;
+  margin-bottom: 10px; /* Space below the orbit container */
+}
+
+.orbit-chart {
+  grid-column: 2; /* Second column */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.large-chart {
+  width: 100%; /* Full width within the container */
+  height: 800px; /* Set the desired height */
+}
+
+.user-approach-container {
+  grid-column: 3; /* Third column */
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.obj-orbit-data,
+.past-approach-data,
+.future-approach-data {
+  border: 1px solid #ddd; /* Light border */
+  padding: 0.5rem 1rem; /* Padding */
+  margin-bottom: 0.5rem; /* Space between sections */
+}
+
+p {
+  margin: 0.25rem 0; /* Margin for readability */
+}
+
+p strong {
+  font-weight: bold; /* Bold labels */
+}
+
+.orbit-chart {
+  padding-right: 30px;
+}
