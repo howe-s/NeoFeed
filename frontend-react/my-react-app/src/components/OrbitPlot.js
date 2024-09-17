@@ -50,7 +50,7 @@ const OrbitPlot = ({ orbitData }) => {
   }, [orbitData, chartRef]);
 
   return (
-    <div>
+    <div className="orbit-data-image">
       <h2>Orbit</h2>
       <canvas ref={setChartRef} width="400" height="200" />
     </div>

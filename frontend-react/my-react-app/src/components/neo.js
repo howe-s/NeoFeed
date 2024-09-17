@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../static/neo.css';
 import NeoObject from './NeoObject';
+import OrbitPlot from './OrbitPlot'
 
 function Neo({ dateRange }) {
   const [message, setMessage] = useState('');

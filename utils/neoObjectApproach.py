@@ -3,6 +3,7 @@ from flask import jsonify
 from config import API_KEY
 import json
 import time
+from utils.neoOrbitImage import plot_orbit
 
 def neoObject(identifier): 
     # print(identifier)
@@ -36,7 +37,8 @@ def neoObjectDataStructure(identifier):
                 past_approaches.append(approach)
     
     orbital_data.append(data['orbital_data'])
-    # print(orbital_data)
+    orbital_image = plot_orbit(orbital_data)
+    print(orbital_image)
         
     # Sort the all_approaches list by epoch_date_close_approach
     # sorted_approaches = sorted(all_approaches, key=lambda x: x['epoch_date_close_approach'], reverse=True)

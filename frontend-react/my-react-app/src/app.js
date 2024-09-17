@@ -1,6 +1,7 @@
 // App.js
 import React, { useState } from 'react';
 import Neo from './components/Neo';
+import OrbitPlot from './components/OrbitPlot'
 import './static/App.css'; // Your styles here
 import DateRangePicker from './components/DateRangePicker'; // Ensure correct import
 
@@ -17,7 +18,7 @@ const App = () => {
       <div className="calendar-wrapper">
         <DateRangePicker onDateRangeChange={handleDateRangeChange} />
       </div>      
-        <Neo dateRange={selectedDateRange} />      
+        <Neo dateRange={selectedDateRange} />           
     </div>
   );
 };
