@@ -3,7 +3,8 @@ import plotly.graph_objects as go
 from skyfield.constants import AU_KM
 from scipy.constants import G
 from math import pi, sqrt, cos, sin
-import json
+from flask import Flask, jsonify
+import plotly.io as pio
 
 # Constants
 mu = 1.32712440018e11  # Gravitational parameter of the Sun in km^3/s^2
@@ -83,13 +84,5 @@ def plot_orbit(orbital_data_list):
     # Convert the figure to JSON
     fig_json = fig.to_json()
 
-    # fig.show()
-
-    # # Return the JSON object
-    # return json.loads(fig_json)
-
-    # Convert the figure to HTML
-    fig_html = fig.to_html(full_html=False)
-
-    # Return the HTML string
-    return fig_html
+    chart_json = pio.to_json(fig)
+    return chart_json

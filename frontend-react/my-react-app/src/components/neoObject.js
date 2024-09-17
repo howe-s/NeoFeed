@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import sanitizeHtml from 'sanitize-html';
 import '../static/neoObject.css';
 
 const NeoObject = ({ selectedObject }) => {
@@ -28,15 +29,12 @@ const NeoObject = ({ selectedObject }) => {
                     setApproachData(dataArray.sorted_approaches);
                     setFutureApproachData(dataArray.future_approaches);
                     setPastApproachData(dataArray.past_approaches);
-                    setOrbitImage(dataArray.orbital_image)  
+                    setOrbitImage(dataArray.orbital_image); // Sanitize HTML
                     setOrbitData(dataArray.orbital_data);
-                    // setMessage(response.data.message);
                     setIdentifier(JSON.stringify(dataArray.object_id));
-                  
                 } catch (error) {
                     setMessage('Error occurred');
                 }
-                
                 setLoading(false);
             }
         };
@@ -49,11 +47,8 @@ const NeoObject = ({ selectedObject }) => {
             nowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, [approachData]); // Trigger scroll when approachData changes
-    console.log("Object ID", identifier)
-        
+    console.log(orbitImage)
     if (approachData && Array.isArray(approachData)) {
-        
-        // console.log(dataArray)
         return (
             <div id="user-obj-data-wrapper">
                 {loading && <p>Loading...</p>}
@@ -121,6 +116,7 @@ const NeoObject = ({ selectedObject }) => {
                         ))}
                     </div>
                 </div>
+
             </div>
         );
     } else {
