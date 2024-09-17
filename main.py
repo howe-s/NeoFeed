@@ -44,6 +44,7 @@ def neoData():
 @app.route('/api/neoObject', methods=['POST', 'GET'])
 def neo_identifier():
     if request.method == 'POST':
+        print('/api/neoObject', 'POST')
         response = request.get_json()
         identifier = response.get('id')
         

@@ -1,78 +1,37 @@
-/* UserObjData.css */
-/* #user-obj-data-wrapper {
-    max-width: 30%;   
-    display: flex;
-} */
-
-/* General styling for the wrapper */
 #user-obj-data-wrapper {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: fit-content;
-    max-height: fit-content;
-    margin: auto;
-    display: flex;  
-    /* overflow-y: scroll;   */
+    /* styles for the main wrapper element */
+  }
+  #user-obj-data-wrapper {
+  display: grid; /* Set the wrapper to use a grid layout */
+  grid-template-columns: 1fr auto; /* Define columns: 1st takes 1 fraction of space, 2nd takes remaining space */
 }
-
-#user-obj-data-wrapper p {
-    margin: 0;
-    padding: 8px 0;
-    color: #333;
-}
-
-#user-obj-data-wrapper p strong {
-    /* color: #007bff; */
-}
-
-/* Loading state */
-#user-obj-data-wrapper p.loading {
-    font-size: 16px;
-    color: #007bff;
-    text-align: center;
-}
-
-/* Container styling */
-.user-approach-data-container, .obj-orbit-data-container {
-    margin-top: 20px;    
-}
-.user-approach-data-container {
+  
+  .obj-orbit-data-container,
+  .user-approach-container {
     overflow-y: scroll;
-    max-height: 90vh;
-}
+    max-height: 100vh;
+    margin-left: 10px;
+  }
 
-.future-approach-data, .past-approach-data, .obj-orbit-data {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.future-user-approach-data p, .obj-orbit-data p {
-    margin-bottom: 10px;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    #user-obj-data-wrapper {
-        padding: 15px;
-    }
-
-    .future-user-approach-data, .obj-orbit-data {
-        padding: 10px;
-    }
-}
-
-.obj-orbit-data-container {
-    margin:20px;
-    max-height: fit-content;
-}
-
-
-
-
+  .obj-orbit-container {
+    overflow-y: hidden;
+  }
+  
+  .obj-orbit-data,
+  .past-approach-data,
+  .future-approach-data {
+    /* styles for individual data sections */
+    border: 1px solid #ddd; /* add a light border */
+    padding: 0.5rem 1rem; /* add some padding */
+    margin-bottom: 0.5rem; /* add space between sections */
+  }
+  
+  p {
+    /* styles for all paragraphs */
+    margin: 0.25rem 0; /* adjust margin for readability */
+  }
+  
+  /* Optional: Add font styles for a cleaner look */
+  p strong {
+    font-weight: bold; /* bold the labels */
+  }

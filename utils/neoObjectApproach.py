@@ -13,12 +13,14 @@ def neoObject(identifier):
     headers = {'accept': 'application/json'}   
     response = requests.get(url, params=params, headers=headers)
     response = response.json()
+    print('neoObject')
 
     return response
 
 # all_approaches = []
 
 def neoObjectDataStructure(identifier):
+    print('neoObjectDataStructure')
     data = neoObject(identifier)
     all_approaches = []
     past_approaches = []
