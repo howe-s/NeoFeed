@@ -25,12 +25,11 @@ def neoData():
         except ValueError:
             return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
 
-        # Fetch data from neo function
         data = neo(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
         return jsonify(data=data)
     
-    else:
-        # Default to the last 2 days
+    if request.method == 'GET':
+        # Default to the last 2 days if no date range is provided
         today = datetime.now()
         yesterday = today - timedelta(days=1)
         two_days_ago = today - timedelta(days=2)
@@ -40,6 +39,7 @@ def neoData():
 
         data = neo(start_date, end_date)
         return jsonify(data=data)
+
 
 @app.route('/api/neoObject', methods=['POST', 'GET'])
 def neo_identifier():
