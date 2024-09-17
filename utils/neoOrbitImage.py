@@ -83,5 +83,13 @@ def plot_orbit(orbital_data_list):
     # Convert the figure to JSON
     fig_json = fig.to_json()
 
-    # Return the JSON object
-    return json.loads(fig_json)
+    # fig.show()
+
+    # # Return the JSON object
+    # return json.loads(fig_json)
+
+    # Convert the figure to HTML
+    fig_html = fig.to_html(full_html=False)
+
+    # Return the HTML string
+    return fig_html

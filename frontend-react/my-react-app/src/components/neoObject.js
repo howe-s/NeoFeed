@@ -11,6 +11,7 @@ const NeoObject = ({ selectedObject }) => {
     const [message, setMessage] = useState('');
     const [identifier, setIdentifier] = useState(null);
     const [orbitImage, setOrbitImage] = useState(null);
+    const [objectID, setObjectID] = useState(null);
 
     const nowRef = useRef(null); // Ref for the <p>Now</p> element
 
@@ -23,17 +24,19 @@ const NeoObject = ({ selectedObject }) => {
                 setIdentifier(null);
                 try {
                     const response = await axios.post('http://127.0.0.1:5000/api/neoObject', selectedObject);
-                    const dataArray = JSON.parse(response.data.data);
+                    const dataArray = JSON.parse(response.data.data);                    
                     setApproachData(dataArray.sorted_approaches);
                     setFutureApproachData(dataArray.future_approaches);
                     setPastApproachData(dataArray.past_approaches);
+                    setOrbitImage(dataArray.orbital_image)  
                     setOrbitData(dataArray.orbital_data);
-                    setMessage(response.data.message);
-                    setIdentifier(response.data.identifier);
-                    setOrbitImage(response.dataArray.orbital_image)
+                    // setMessage(response.data.message);
+                    setIdentifier(JSON.stringify(dataArray.object_id));
+                  
                 } catch (error) {
                     setMessage('Error occurred');
                 }
+                
                 setLoading(false);
             }
         };
@@ -46,15 +49,18 @@ const NeoObject = ({ selectedObject }) => {
             nowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, [approachData]); // Trigger scroll when approachData changes
-
+    console.log("Object ID", identifier)
+        
     if (approachData && Array.isArray(approachData)) {
-        console.log(orbitData)
+        
+        // console.log(dataArray)
         return (
             <div id="user-obj-data-wrapper">
                 {loading && <p>Loading...</p>}
                 <div className="obj-orbit-container">
                     {orbitData.map((item, index) => (
                         <div key={index} className="obj-orbit-data">
+                            <p><strong>Object ID:</strong> {identifier}</p>
                             <p><strong>Orbit ID:</strong> {item.orbit_id}</p>
                             <p><strong>Orbit Determination Date:</strong> {item.orbit_determination_date}</p>
                             <p><strong>First Observation Date:</strong> {item.first_observation_date}</p>

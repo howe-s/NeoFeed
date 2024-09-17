@@ -52,6 +52,7 @@ def neoObjectDataStructure(identifier):
 
     
     combined_data = {
+    "object_id": identifier,
     "sorted_approaches": all_approaches,
     "future_approaches": future_approaches,
     "past_approaches": past_approaches,
@@ -60,7 +61,10 @@ def neoObjectDataStructure(identifier):
     }
 
     result = json.dumps(combined_data, indent=2)
-    # print("neoObject Return:", result)
+    test = json.loads(result)
+
+    # Print only the object_id
+    print(test["object_id"])
 
     return result
 
