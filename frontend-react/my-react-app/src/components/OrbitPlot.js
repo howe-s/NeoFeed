@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Chart } from 'chart.js'; // You'll need to install chart.js
 
-const OrbitPlot = ({ orbitData }) => {
+const OrbitPlot = ({ orbital_data }) => {
   const [chartRef, setChartRef] = useState(null);
 
   const chartOptions = {
@@ -29,14 +29,14 @@ const OrbitPlot = ({ orbitData }) => {
   };
 
   useState(() => {
-    if (orbitData && chartRef) {
+    if (orbital_data && chartRef) {
       const ctx = chartRef.current.getContext('2d');
       const orbitPlot = new Chart(ctx, {
         type: 'scatter',
         data: {
           datasets: [{
             label: 'Orbit',
-            data: orbitData.map(item => ({
+            data: orbital_data.map(item => ({
               x: item.semi_major_axis,
               y: item.inclination
             })),
@@ -47,7 +47,7 @@ const OrbitPlot = ({ orbitData }) => {
         options: chartOptions
       });
     }
-  }, [orbitData, chartRef]);
+  }, [orbital_data, chartRef]);
 
   return (
     <div className="orbit-data-image">

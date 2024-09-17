@@ -46,7 +46,7 @@ const NeoObject = ({ selectedObject }) => {
     }, [approachData]); // Trigger scroll when approachData changes
 
     if (approachData && Array.isArray(approachData)) {
-        console.log(typeof orbitData)
+        console.log(orbitData)
         return (
             <div id="user-obj-data-wrapper">
                 {loading && <p>Loading...</p>}

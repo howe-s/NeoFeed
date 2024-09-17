@@ -25,7 +25,7 @@ def neoData():
         except ValueError:
             return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
 
-        data = neo(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
+        data = neo(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))        
         return jsonify(data=data)
     
     if request.method == 'GET':
@@ -36,7 +36,7 @@ def neoData():
 
         start_date = two_days_ago.strftime('%Y-%m-%d')
         end_date = yesterday.strftime('%Y-%m-%d')
-
+        print('NeoData')
         data = neo(start_date, end_date)
         return jsonify(data=data)
 

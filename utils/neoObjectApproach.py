@@ -37,8 +37,15 @@ def neoObjectDataStructure(identifier):
                 past_approaches.append(approach)
     
     orbital_data.append(data['orbital_data'])
-    orbital_image = plot_orbit(orbital_data)
-    print(orbital_image)
+    print(type(orbital_data))
+    # print(orbital_data)
+    raw_orbital_image = plot_orbit(orbital_data)
+    converted_orbital_image = json.dumps(raw_orbital_image)
+
+    # print(orbital_image)
+    # # To save the figure as an image file (e.g., PNG):
+    # orbital_image.write_image("orbit_plot.png")
+    
         
     # Sort the all_approaches list by epoch_date_close_approach
     # sorted_approaches = sorted(all_approaches, key=lambda x: x['epoch_date_close_approach'], reverse=True)
@@ -48,10 +55,12 @@ def neoObjectDataStructure(identifier):
     "sorted_approaches": all_approaches,
     "future_approaches": future_approaches,
     "past_approaches": past_approaches,
-    "orbital_data": orbital_data
+    "orbital_data": orbital_data,
+    "orbital_image": converted_orbital_image
     }
 
     result = json.dumps(combined_data, indent=2)
+    print("neoObject Return:", result)
 
     return result
 
