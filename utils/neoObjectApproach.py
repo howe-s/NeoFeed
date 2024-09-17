@@ -30,7 +30,7 @@ def neoObjectDataStructure(identifier):
             all_approaches.append(approach)
     
     orbital_data.append(data['orbital_data'])
-    print(orbital_data)
+    # print(orbital_data)
         
     # Sort the all_approaches list by epoch_date_close_approach
     # sorted_approaches = sorted(all_approaches, key=lambda x: x['epoch_date_close_approach'], reverse=True)

@@ -21,7 +21,7 @@ def neo(start_date, end_date):
         current_epoch_ms = int(time.time() * 1000)
         # Iterate through the near_earth_objectss
         for date, objects in raw_data['near_earth_objects'].items():
-            print(objects)
+            # print(objects)
             for obj in objects:
                 # print('object print', obj)
                 if obj['close_approach_data'][0].get('epoch_date_close_approach') <  current_epoch_ms:
