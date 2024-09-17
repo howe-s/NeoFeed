@@ -1,0 +1,23 @@
+/* NearEarthObjs.css */
+#near-earth-objs-wrapper {
+    max-height: 100vh;
+    max-width: fit-content;
+    /* display: flex;     */
+    overflow-y: scroll;
+    position: flex;
+}
+
+#near-earth-objs-container {
+    max-height: fit-content;    
+    
+}
+
+#near-earth-objs-container p {
+    max-height: fit-content;    
+    /* display: flex;     */   
+}
+
+#near-earth-objs-data {
+    min-height: fit-content;
+}
+
