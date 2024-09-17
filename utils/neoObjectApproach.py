@@ -60,7 +60,7 @@ def neoObjectDataStructure(identifier):
     }
 
     result = json.dumps(combined_data, indent=2)
-    print("neoObject Return:", result)
+    # print("neoObject Return:", result)
 
     return result
 

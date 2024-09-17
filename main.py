@@ -51,7 +51,7 @@ def neo_identifier():
         if not identifier:
             return jsonify({"error": "ID is required"}), 400
 
-        data = neoObjectDataStructure(identifier)
+        data = neoObjectDataStructure(identifier)        
         if data:
             return jsonify(data=data, identifier=identifier)
         else:

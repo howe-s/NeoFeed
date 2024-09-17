@@ -10,6 +10,7 @@ const NeoObject = ({ selectedObject }) => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [identifier, setIdentifier] = useState(null);
+    const [orbitImage, setOrbitImage] = useState(null);
 
     const nowRef = useRef(null); // Ref for the <p>Now</p> element
 
@@ -29,6 +30,7 @@ const NeoObject = ({ selectedObject }) => {
                     setOrbitData(dataArray.orbital_data);
                     setMessage(response.data.message);
                     setIdentifier(response.data.identifier);
+                    setOrbitImage(response.dataArray.orbital_image)
                 } catch (error) {
                     setMessage('Error occurred');
                 }
