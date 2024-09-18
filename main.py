@@ -31,11 +31,11 @@ def neoData():
     if request.method == 'GET':
         # Default to the last 2 days if no date range is provided
         today = datetime.now()
-        yesterday = today - timedelta(days=1)
-        two_days_ago = today - timedelta(days=2)
+        # yesterday = today - timedelta(days=1)
+        # two_days_ago = today - timedelta(days=2)
 
-        start_date = two_days_ago.strftime('%Y-%m-%d')
-        end_date = yesterday.strftime('%Y-%m-%d')
+        start_date = today.strftime('%Y-%m-%d')
+        end_date = today.strftime('%Y-%m-%d')
         print('NeoData')
         data = neo(start_date, end_date)
         return jsonify(data=data)

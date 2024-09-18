@@ -40,11 +40,12 @@ def neoObjectDataStructure(identifier):
                 past_approaches.append(approach)
     
     orbital_data.append(data['orbital_data'])
-    raw_orbital_image = plot_orbit(orbital_data, orbiting_body)
+    # raw_orbital_image = plot_orbit(orbital_data, orbiting_body)
     # print(type(plot_orbit(orbital_data, orbiting_body)))
     # converted_orbital_image = json.dumps(plot_orbit(orbital_data))
 
     converted_orbital_image = plot_orbit(orbital_data, orbiting_body)
+    
     # print(converted_orbital_image)
     # print(orbital_image)
     # # To save the figure as an image file (e.g., PNG):
