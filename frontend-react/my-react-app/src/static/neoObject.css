@@ -39,6 +39,7 @@
   border: 1px solid #ddd; /* Light border */
   padding: 0.5rem 1rem; /* Padding */
   margin-bottom: 0.5rem; /* Space between sections */
+  min-width: 300px;
 }
 
 p {

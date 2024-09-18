@@ -23,13 +23,16 @@ def neoObject(identifier):
 def neoObjectDataStructure(identifier):
     print('neoObjectDataStructure')
     data = neoObject(identifier)
+    # print('data', data)
     all_approaches = []
     past_approaches = []
     future_approaches = []
     orbital_data = []
+    orbiting_body = []
     current_epoch_ms = int(time.time() * 1000)
     # Collect all close_approach_data entries
     for approach in data['close_approach_data']:
+            orbiting_body.append(approach['orbiting_body'], )
             all_approaches.append(approach)
             if approach['epoch_date_close_approach'] >  current_epoch_ms:
                 future_approaches.append(approach)
@@ -37,13 +40,12 @@ def neoObjectDataStructure(identifier):
                 past_approaches.append(approach)
     
     orbital_data.append(data['orbital_data'])
-    print(type(orbital_data))
-    # print(orbital_data)
-    raw_orbital_image = plot_orbit(orbital_data)
-    print(type(plot_orbit(orbital_data)))
+    raw_orbital_image = plot_orbit(orbital_data, orbiting_body)
+    # print(type(plot_orbit(orbital_data, orbiting_body)))
     # converted_orbital_image = json.dumps(plot_orbit(orbital_data))
-    converted_orbital_image = plot_orbit(orbital_data)
-    print(converted_orbital_image)
+
+    converted_orbital_image = plot_orbit(orbital_data, orbiting_body)
+    # print(converted_orbital_image)
     # print(orbital_image)
     # # To save the figure as an image file (e.g., PNG):
     # orbital_image.write_image("orbit_plot.png")

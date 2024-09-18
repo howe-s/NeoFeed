@@ -6,14 +6,35 @@ from math import pi, sqrt, cos, sin
 from flask import Flask, jsonify
 
 # Constants
-mu = 1.32712440018e11  # Gravitational parameter of the Sun in km^3/s^2
+mu_sun = 1.32712440018e11  # Gravitational parameter of the Sun in km^3/s^2
 
-def plot_orbit(orbital_data_list):
+# Define positions for the Sun and other planets (for example)
+def get_planet_positions():
+    # Placeholder positions for the Sun and planets
+    # In practice, you would use real data or calculations here
+    # Positions are in km, these values are not accurate and are for illustration only
+    positions = {
+        'Sun': [0, 0, 0],
+        'Earth': [1 * AU_KM, 0, 0],
+        'Venus': [0.723 * AU_KM, 0, 0],
+        'Mars': [1.524 * AU_KM, 0, 0],
+        # Add more planets as needed
+    }
+    return positions
+
+def plot_orbit(orbital_data_list, orbiting_body):
+    # print('body in image function', orbiting_body)
     fig = go.Figure()
+    # print(orbiting_body)
+    orbiting_planet = max(set(orbiting_body), key=orbiting_body.count)    
+    # Get positions for the Sun and other planets
+    planet_positions = get_planet_positions()
 
     for orbital_data in orbital_data_list:
         # Extract orbital parameters from the data
         a = float(orbital_data['semi_major_axis']) * AU_KM  # Semi-major axis in km
+        # if central_body == 'sun':
+        #     a = float(orbital_data['semi_major_axis']) * AU_KM  # Semi-major axis in km
         e = float(orbital_data['eccentricity'])  # Eccentricity
         i = float(orbital_data['inclination']) * (pi / 180)  # Inclination in radians
         omega = float(orbital_data['ascending_node_longitude']) * (pi / 180)  # Longitude of ascending node in radians
@@ -26,7 +47,7 @@ def plot_orbit(orbital_data_list):
         time = np.linspace(0, period, num_points)
 
         # Calculate mean motion
-        n = sqrt(mu / a**3)  # Mean motion (radians per second)
+        n = sqrt(mu_sun / a**3)  # Mean motion (radians per second)
 
         # Calculate position over time
         r_x, r_y, r_z = [], [], []
@@ -61,13 +82,14 @@ def plot_orbit(orbital_data_list):
             name=f'Orbit Path {orbital_data["orbit_id"]}'
         ))
 
-    # Plot Earth's position at the origin
-    fig.add_trace(go.Scatter3d(
-        x=[0], y=[0], z=[0],
-        mode='markers',
-        marker=dict(size=5, color='blue'),
-        name='Earth'
-    ))
+    # Plot positions of the Sun and planets
+    for body, pos in planet_positions.items():
+        fig.add_trace(go.Scatter3d(
+            x=[pos[0]], y=[pos[1]], z=[pos[2]],
+            mode='markers',
+            marker=dict(size=8 if body == 'Sun' else 5, color='red' if body == 'Sun' else 'orange'),
+            name=body
+        ))
 
     # Set labels and title
     fig.update_layout(
@@ -75,11 +97,10 @@ def plot_orbit(orbital_data_list):
             xaxis_title='X (km)',
             yaxis_title='Y (km)',
             zaxis_title='Z (km)',
-            aspectmode='data'  # Keep aspect ratio of the plot data
+            aspectmode='data'  # Keeps the aspect ratio consistent
         ),
-        title='Orbits of Objects around the Sun'
     )
-    # fig.show()
+
     # Convert the figure to JSON
     fig_json = fig.to_dict()
 
