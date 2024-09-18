@@ -33,7 +33,6 @@ def neoData():
         today = datetime.now()
         # yesterday = today - timedelta(days=1)
         # two_days_ago = today - timedelta(days=2)
-
         start_date = today.strftime('%Y-%m-%d')
         end_date = today.strftime('%Y-%m-%d')
         print('NeoData')

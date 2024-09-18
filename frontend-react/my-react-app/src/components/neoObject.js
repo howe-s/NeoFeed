@@ -53,7 +53,7 @@ const NeoObject = ({ selectedObject }) => {
         return (
             <div id="user-obj-data-wrapper">
                 {loading && <p>Loading...</p>}
-                <div className="obj-orbit-container">
+                {/* <div className="obj-orbit-container">
                     {orbitData.map((item, index) => (
                         <div key={index} className="obj-orbit-data">
                             <p><strong>Object ID:</strong> {identifier}</p>
@@ -81,9 +81,9 @@ const NeoObject = ({ selectedObject }) => {
                             <p><strong>Equinox:</strong> {item.equinox}</p>             
                         </div>
                     ))}
-                </div>     
+                </div>      */}
                 <div className="orbit-chart">
-                    <PlotlyChart chartData={orbitImage} className="large-chart" />
+                    <PlotlyChart chartData={orbitImage} layout={{ autosize: true }} className="large-chart" />
                 </div>
                 <div className="user-approach-container">
                     <div className="past-approach-container">

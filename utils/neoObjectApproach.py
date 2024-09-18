@@ -14,7 +14,7 @@ def neoObject(identifier):
     headers = {'accept': 'application/json'}   
     response = requests.get(url, params=params, headers=headers)
     response = response.json()
-    print('neoObject')
+    print('API HIT')
 
     return response
 
