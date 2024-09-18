@@ -50,9 +50,9 @@ def plot_orbit(orbital_data_list, orbiting_body):
     orbiting_planet = max(set(orbiting_body), key=orbiting_body.count)    
     # Get positions for the Sun and other planets
     planet_positions = get_planet_positions()
-    satellite_positions = fetch_and_convert_tle_data()
-    parsed_dict = json.loads(satellite_positions)
-    lte_data = dict_list_to_tuples(parsed_dict)
+    # satellite_positions = fetch_and_convert_tle_data()
+    # parsed_dict = json.loads(satellite_positions)
+    # lte_data = dict_list_to_tuples(parsed_dict)
     # print(lte_data)
     # for satellite in satellite_positions:
     #     print(satellite)
