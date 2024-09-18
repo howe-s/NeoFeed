@@ -100,6 +100,7 @@ const NeoObject = ({ selectedObject }) => {
                             </select>
                         </label>
                     </div>
+                    
                     <div className="past-approach-container">
                         {pastApproachData.map((item, index) => (
                             <div key={index} className="past-approach-data">
@@ -123,7 +124,7 @@ const NeoObject = ({ selectedObject }) => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div>               
             </div>
         );
     } else {

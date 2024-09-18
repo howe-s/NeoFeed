@@ -1,7 +1,7 @@
 #user-obj-data-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
   gap: 10px;
   height: 100vh;
   padding: 10px;
@@ -64,9 +64,8 @@ p strong {
 .unit-selectors {
   display: flex;
   gap: 1rem; 
-  /* padding-bottom: 30px; */
+  padding-bottom: 30px;
   align-items: center;
-  max-height: 100px;
 }
 
 .unit-selectors label {
