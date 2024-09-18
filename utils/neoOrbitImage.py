@@ -1,6 +1,7 @@
 import numpy as np
 import plotly.graph_objects as go
 from skyfield.constants import AU_KM
+from skyfield.api import load
 from scipy.constants import G
 from math import pi, sqrt, cos, sin
 from flask import Flask, jsonify
@@ -8,19 +9,33 @@ from flask import Flask, jsonify
 # Constants
 mu_sun = 1.32712440018e11  # Gravitational parameter of the Sun in km^3/s^2
 
-# Define positions for the Sun and other planets (for example)
+from skyfield.api import load
+
 def get_planet_positions():
-    # Placeholder positions for the Sun and planets
-    # In practice, you would use real data or calculations here
-    # Positions are in km, these values are not accurate and are for illustration only
+    # Load the planetary ephemeris data
+    ts = load.timescale()
+    planets = load('de421.bsp')  # Load DE421 ephemeris data
+
+    # Define the timescale and current time
+    t = ts.now()
+
+    # Get the planets
+    earth, venus, mars = planets['earth'], planets['venus'], planets['mars']
+
+    # Get current positions
+    earth_pos = earth.at(t).position.au  # Position in astronomical units
+    venus_pos = venus.at(t).position.au
+    mars_pos = mars.at(t).position.au
+
+    # Convert AU to km
     positions = {
         'Sun': [0, 0, 0],
-        'Earth': [1 * AU_KM, 0, 0],
-        'Venus': [0.723 * AU_KM, 0, 0],
-        'Mars': [1.524 * AU_KM, 0, 0],
-        # Add more planets as needed
+        'Earth': [earth_pos[0] * AU_KM, earth_pos[1] * AU_KM, earth_pos[2] * AU_KM],
+        'Venus': [venus_pos[0] * AU_KM, venus_pos[1] * AU_KM, venus_pos[2] * AU_KM],
+        'Mars': [mars_pos[0] * AU_KM, mars_pos[1] * AU_KM, mars_pos[2] * AU_KM],
     }
     return positions
+
 
 def plot_orbit(orbital_data_list, orbiting_body):
     # print('body in image function', orbiting_body)
