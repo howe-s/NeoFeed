@@ -46,7 +46,7 @@ def plot_orbit(orbital_data_list, orbiting_body):
             name=body
         ))
 
-    # Add each object's orbit path to the plot (as you already do)
+    # Add each object's orbit path to the plot
     for orbital_data in orbital_data_list:
         a = float(orbital_data['semi_major_axis']) * AU_KM  # Semi-major axis in km
         e = float(orbital_data['eccentricity'])  # Eccentricity
