@@ -67,26 +67,27 @@ function Neo({ dateRange }) {
   if (data && Array.isArray(data)) {
     return (
       <div id="data-wrapper">
-      <div className="date-range">      
-          <DateRangePicker         
-          onDateRangeChange={handleDateRangeChange} 
-        />
-      </div>
+        <div className="date-range">
+          <DateRangePicker onDateRangeChange={handleDateRangeChange} />
+        </div>
         <div id="near-earth-objs-wrapper">
           {data.map((object, index) => (
             <div
-              id="near-earth-objs-container"
+              id={`near-earth-objs-container-${object.id}`} // Unique ID for each container
+              class='objs-container'
               key={object.id}
               style={{
-                border: '1px solid black',
-                marginBottom: '10px',
-                padding: '10px',
+                // border: '1px solid black',
+                // marginBottom: '10px',
+                // padding: '10px',
                 cursor: 'pointer',
                 backgroundColor: object.is_hazardous === 'yes' ? 'orange' : 'inherit',
-                color: object.is_hazardous === 'yes' ? 'black' : 'inherit'
+                color: object.is_hazardous === 'yes' ? 'black' : 'inherit',
+                
               }}
               onClick={() => handleClick(object)}
             >
+              <div className="initial-data">
               <h3 id="near-earth-objs-name">Object {index + 1}: {object.name}</h3>
               <p id="near-earth-objs-data">ID: {object.id}</p>
               <p id="near-earth-objs-data">Magnitude: {object.absolute_magnitude_h}</p>
@@ -96,13 +97,19 @@ function Neo({ dateRange }) {
               <p id="near-earth-objs-data">Miss Distance (km): {object.miss_distance_km}</p>
               <p id="near-earth-objs-data">Relative Velocity (km/h): {object.velocity_kmph}</p>
               <a id="near-earth-objs-link" href={object.nasa_jpl_url} target="_blank" rel="noopener noreferrer">More Info</a>
-            </div>
+              </div>   
+              
+              {selectedObject && selectedObject.id === object.id && (
+                <div id="neo-object-container">
+                  <NeoObject selectedObject={selectedObject} />
+                  {/* <p>test</p> */}
+                </div>
+              )}
+              </div>
+                
           ))}
         </div>
-        {selectedObject && (
-          <NeoObject selectedObject={selectedObject} />
-        )}
-        <NewsFeed />
+        {/* <NewsFeed /> */}
       </div>
     );
   } else {

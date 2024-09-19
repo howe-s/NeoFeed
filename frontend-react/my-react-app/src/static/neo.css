@@ -1,28 +1,59 @@
-/* NearEarthObjs.css */
+.objs-container {
+    border: 1px solid #ccc;
+    /* max-width: fit-content; */
+    padding: 10px;
+
+}
+
+.initial-data {
+    max-width: 500px;
+}
+
 #near-earth-objs-wrapper {
-    max-height: 1000px;
     max-width: fit-content;
-    /* display: flex;     */
-    overflow-y: scroll;
-    position: flex;
-    min-height: 100%;
 }
 
-#near-earth-objs-container {
-    max-height: fit-content;    
-    min-width: fit-content;
-    
-}
+.user-approach-container {
+    /* display: flex; */
+    /* flex-direction: row; */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    border: 1px solid #ccc;
+    max-width: 100vw;   
+  }
 
-#near-earth-objs-container p {
-    max-height: fit-content;    
-    /* display: flex;     */   
-}
+  .orbit-chart {
+    margin: 10px;
+  }
+  
+  /* Style the child elements within the container */
+  .unit-selectors,
+  .past-approach-container,
+  .future-approach-container,
+  .nowRef { /* Add your other child elements if needed */
+    flex: 0 0 auto; /* Make elements inflexible and take their minimum width */
+    padding: 5px; /* Add padding for spacing */
+  }
 
-#near-earth-objs-data {
-    min-height: fit-content;
-}
+  .approach {
+    display: flex;
+    /* overflow-x: scroll; */
+  }
 
-.date-range {
-    max-height: 75px;
+  .past-approach-container {
+    display: flex;;
+  }
+  .future-approach-container {
+    display: flex;
+  }
+
+  .past-approach-data {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .future-approach-data {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
   }

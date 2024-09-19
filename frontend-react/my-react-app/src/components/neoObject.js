@@ -101,7 +101,7 @@ const NeoObject = ({ selectedObject }) => {
                             </select>
                         </label>
                     </div>
-                    
+                    <div className="approach">
                     <div className="past-approach-container">
                         {pastApproachData.map((item, index) => (
                             <div key={index} className="past-approach-data">
@@ -124,6 +124,7 @@ const NeoObject = ({ selectedObject }) => {
                                 <p><strong>Relative Velocity:</strong> {getDisplayValue(item.relative_velocity, velocityUnit, 'velocity')}</p>
                             </div>
                         ))}
+                        </div>
                     </div>
                 </div>               
             </div>
