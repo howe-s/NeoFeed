@@ -21,7 +21,7 @@ NeoFeed/
 │   ├── utils/
 │   │   ├── neoFeed.py
 │   │   └── neoObjectApproach.py
-        └── (rest of backend files)
+        ...(rest of backend files)
 ├── frontend/  # Existing directory for frontend code
 │   ├── public/
 │   │   └── index.html
