@@ -19,6 +19,7 @@ const DateRangePicker = ({ onDateRangeChange }) => {
 
   const handleSubmit = () => {
     if (startDate && endDate) {
+        console.log('submit')
       const data = {
         start_date: startDate.format('YYYY-MM-DD'),
         end_date: endDate.format('YYYY-MM-DD'),

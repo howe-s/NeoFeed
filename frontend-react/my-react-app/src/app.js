@@ -11,7 +11,10 @@ const App = () => {
   const [selectedComponent, setSelectedComponent] = useState('Neo');
   const [selectedDateRange, setSelectedDateRange] = useState({ startDate: null, endDate: null });
 
-
+  const handleDateRangeChange = (startDate, endDate) => {
+    setSelectedDateRange({ startDate, endDate });  // Update date range when user submits
+    console.log("New date range:", { startDate, endDate });
+  };
 
   const handleComponentChange = (component) => {
     setSelectedComponent(component);
@@ -20,6 +23,9 @@ const App = () => {
   return (
     <div className="neo-App">
       <Header onComponentChange={handleComponentChange}/>
+      <div className="date-range">
+          <DateRangePicker onDateRangeChange={handleDateRangeChange} />
+        </div>
       {selectedComponent === 'Neo' && <Neo dateRange={selectedDateRange} />}
       {selectedComponent === 'Mars' && <Mars dateRange={selectedDateRange} />}
     </div>

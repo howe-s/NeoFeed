@@ -58,6 +58,7 @@ function Neo({ dateRange }) {
 
   const handleDateRangeChange = (startDate, endDate) => {
     setSelectedDateRange({ startDate, endDate });
+    console.log(selectedDateRange)
   };
 
   if (loading) {
@@ -67,9 +68,7 @@ function Neo({ dateRange }) {
   if (data && Array.isArray(data)) {
     return (
       <div id="data-wrapper">
-        <div className="date-range">
-          <DateRangePicker onDateRangeChange={handleDateRangeChange} />
-        </div>
+
         <div id="near-earth-objs-wrapper">
           {data.map((object, index) => (
             <div
