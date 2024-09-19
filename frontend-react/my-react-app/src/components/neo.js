@@ -80,21 +80,23 @@ function Neo({ dateRange }) {
                 // marginBottom: '10px',
                 // padding: '10px',
                 cursor: 'pointer',
-                backgroundColor: object.is_hazardous === 'yes' ? 'orange' : 'inherit',
-                color: object.is_hazardous === 'yes' ? 'black' : 'inherit',
+                backgroundColor: object.is_hazardous ? '#FFFFE0' : 'inherit',
+                color: object.is_hazardous === 'Yes' ? 'black' : 'inherit',
                 
               }}
               onClick={() => handleClick(object)}
             >
-              <div className="initial-data">
+              <div 
+                className={`initial-data ${object.is_hazardous === "Yes" ? "hazardous" : ""}`}
+              >
               <h3 id="near-earth-objs-name">Object {index + 1}: {object.name}</h3>
-              <p id="near-earth-objs-data">ID: {object.id}</p>
-              <p id="near-earth-objs-data">Magnitude: {object.absolute_magnitude_h}</p>
-              <p id="near-earth-objs-data">Potentially Hazardous: {object.is_hazardous ? 'Yes' : 'No'}</p>
-              <p id="near-earth-objs-data">Estimated Diameter (km): {object.diameter_min_km} - {object.diameter_max_km}</p>
-              <p id="near-earth-objs-data">Close Approach Date: {object.approach_date}</p>
-              <p id="near-earth-objs-data">Miss Distance (km): {object.miss_distance_km}</p>
-              <p id="near-earth-objs-data">Relative Velocity (km/h): {object.velocity_kmph}</p>
+              <p className="near-earth-objs-data">ID: {object.id}</p>
+              <p className="near-earth-objs-data">Magnitude: {object.absolute_magnitude_h}</p>
+              <p id="hazard" className="near-earth-objs-data">Potentially Hazardous: {object.is_hazardous ? 'Yes' : 'No'}</p>
+              <p className="near-earth-objs-data">Estimated Diameter (km): {object.diameter_min_km} - {object.diameter_max_km}</p>
+              <p className="near-earth-objs-data">Close Approach Date: {object.approach_date}</p>
+              <p className="near-earth-objs-data">Miss Distance (km): {object.miss_distance_km}</p>
+              <p className="near-earth-objs-data">Relative Velocity (km/h): {object.velocity_kmph}</p>
               <a id="near-earth-objs-link" href={object.nasa_jpl_url} target="_blank" rel="noopener noreferrer">More Info</a>
               </div>   
               

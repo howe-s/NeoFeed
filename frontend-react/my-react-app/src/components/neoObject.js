@@ -79,12 +79,10 @@ const NeoObject = ({ selectedObject }) => {
                 
                 <div className="orbit-chart">
                     <PlotlyChart chartData={orbitImage} className="large-chart" />
-                </div>
-                
-                <div className="user-approach-container">                
-                    <div className="unit-selectors">
-                        <label>
-                            
+                </div>                
+                               
+                    <div className="unit-selectors">                    
+                        <label>                            
                             <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}>
                                 <option value="astronomical">Astronomical</option>
                                 <option value="kilometers">Kilometers</option>
@@ -92,8 +90,7 @@ const NeoObject = ({ selectedObject }) => {
                                 <option value="miles">Miles</option>
                             </select>
                         </label>
-                        <label>
-                            
+                        <label>                            
                             <select value={velocityUnit} onChange={(e) => setVelocityUnit(e.target.value)}>
                                 <option value="kilometers_per_hour">km/h</option>
                                 <option value="kilometers_per_second">km/s</option>
@@ -101,6 +98,8 @@ const NeoObject = ({ selectedObject }) => {
                             </select>
                         </label>
                     </div>
+                    
+                    <div className="user-approach-container"> 
                     <div className="approach">
                     <div className="past-approach-container">
                         {pastApproachData.map((item, index) => (

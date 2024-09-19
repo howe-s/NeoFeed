@@ -1,3 +1,15 @@
+.header-bar-container {
+    margin: 20px;
+}
+.date-range {
+    margin: 20px;
+}
+
+#near-earth-objs-wrapper {
+    padding: 20px;
+}
+
+
 .objs-container {
     border: 1px solid #ccc;
     /* max-width: fit-content; */
