@@ -102,8 +102,8 @@ NeoFeed/
     - Request Body Example:
     ```bash
     {
-    "start_date": "2024-01-01",
-    "end_date": "2024-01-07"
+        "start_date": "2024-01-01",
+        "end_date": "2024-01-07"
     }
 3. **GET <code>/api/neoObject</code>**
     - Fetches details for a specific NEO object using its identifier.
