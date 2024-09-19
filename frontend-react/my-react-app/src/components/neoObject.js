@@ -98,7 +98,7 @@ const NeoObject = ({ selectedObject }) => {
                             </select>
                         </label>
                     </div>
-                    
+
                     <div className="user-approach-container"> 
                     <div className="approach">
                     <div className="past-approach-container">
@@ -112,7 +112,7 @@ const NeoObject = ({ selectedObject }) => {
                             </div>
                         ))}
                     </div>
-                    <div><p ref={nowRef}>now</p></div>
+                    {/* <div><p ref={nowRef}>now</p></div> */}
                     <div className="future-approach-container">
                         {futureApproachData.map((item, index) => (
                             <div key={index} className="future-approach-data">
