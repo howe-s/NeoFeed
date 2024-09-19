@@ -9,31 +9,27 @@ def get_planet_positions():
     # Define the timescale and current time
     t = ts.now()
 
-    # Get the planets
-    sun = planets['sun']
+    # Get the planets and the moon
     mercury = planets['mercury']
-    venus = planets['venus']
     earth = planets['earth']
+    venus = planets['venus']
     mars = planets['mars']
-    jupiter = planets['jupiter barycenter']
-    saturn = planets['saturn barycenter']
-    uranus = planets['uranus barycenter']
-    neptune = planets['neptune barycenter']
+    moon = planets['moon']
 
     # Get current positions
-    def get_position(planet):
-        pos = planet.at(t).position.au  # Position in astronomical units
-        return [pos[0] * AU_KM, pos[1] * AU_KM, pos[2] * AU_KM]
-    
+    mercury_pos = mercury.at(t).position.au
+    earth_pos = earth.at(t).position.au  # Position in astronomical units
+    venus_pos = venus.at(t).position.au
+    mars_pos = mars.at(t).position.au
+    moon_pos = moon.at(t).position.au
+
+    # Convert AU to km
     positions = {
         'Sun': [0, 0, 0],
-        'Mercury': get_position(mercury),
-        'Venus': get_position(venus),
-        'Earth': get_position(earth),
-        'Mars': get_position(mars),
-        'Jupiter': get_position(jupiter),
-        # 'Saturn': get_position(saturn),
-        # 'Uranus': get_position(uranus),
-        # 'Neptune': get_position(neptune),
+        'Mercury': [mercury_pos[0] * AU_KM, mercury_pos[1] * AU_KM, mercury_pos[2] * AU_KM],
+        'Earth': [earth_pos[0] * AU_KM, earth_pos[1] * AU_KM, earth_pos[2] * AU_KM],
+        'Venus': [venus_pos[0] * AU_KM, venus_pos[1] * AU_KM, venus_pos[2] * AU_KM],
+        'Mars': [mars_pos[0] * AU_KM, mars_pos[1] * AU_KM, mars_pos[2] * AU_KM],
+        'Moon': [moon_pos[0] * AU_KM, moon_pos[1] * AU_KM, moon_pos[2] * AU_KM],
     }
     return positions
