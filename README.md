@@ -70,6 +70,7 @@ NeoFeed/
    git clone https://github.com/yourusername/neofeed.git
 
 2. **Install dependencies**:
+   ```bash
    cd neofeed
    pip install -r requirements.txt
 
