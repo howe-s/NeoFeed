@@ -13,7 +13,7 @@ NeoFeed is a web application designed to retrieve and visualize data about near-
 8. [Future Improvements](#future-improvements)
 
 ## Project Structure
-```bash
+<code>
 NeoFeed/
 ├── app.py
 ├── requirements.txt
@@ -31,6 +31,7 @@ NeoFeed/
 ├── templates/
 │   └── index.html
 ├── README.md
+</code>
 
 ## Technologies Used
 - **Frontend:**
