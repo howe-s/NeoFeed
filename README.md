@@ -13,27 +13,24 @@ NeoFeed is a web application designed to retrieve and visualize data about near-
 8. [Future Improvements](#future-improvements)
 
 ## Project Structure
+```bash
 NeoFeed/
-├── app.py                  # Flask server file
-├── requirements.txt         # Python dependencies
-├── frontend/
+├── app.py
+├── requirements.txt
+├── backend/  # New directory for backend code
+│   ├── utils/
+│   │   ├── neoFeed.py
+│   │   └── neoObjectApproach.py
+├── frontend/  # Existing directory for frontend code
 │   ├── public/
-│   │   └── index.html       # Base HTML template for React app
+│   │   └── index.html
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Neo.js               # Main NEO component
-│   │   │   ├── NeoObject.js         # NEO details and orbit visualization
-│   │   │   ├── OrbitPlot.js         # Orbit visualization component using Plotly
-│   │   │   ├── DateRangePicker.js   # Component for selecting the date range
-│   │   ├── App.js                   # Main React app structure
+│   │   ... (rest of frontend files)
 │   ├── static/
-│   │   └── neo.css                  # Custom CSS styles for the NEO data
-├── utils/
-│   ├── neoFeed.py            # Python utility to fetch and simplify NEO data
-│   ├── neoObjectApproach.py   # Python script to handle orbit plotting for NEOs
+│   │   └── neo.css
 ├── templates/
-│   └── index.html            # Template for Flask to render the React app
-├── README.md                 # Project documentation
+│   └── index.html
+├── README.md
 
 ## Technologies Used
 - **Frontend:**
