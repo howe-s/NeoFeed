@@ -75,25 +75,40 @@ NeoFeed/
    pip install -r requirements.txt
 
 3. **Run the Flask server**
+   ```bash
    export FLASK_APP=app.py
    flask run
 
 ### Frontend Setup
 1. **Navigate to the frontend directory**
+   ```bash
    cd frontend
    
    
 2. **Install dependencies**:
+   ```bash
    npm install
 
 3. **Run the React app**
+   ```bash
    npm start
 
 ## API Endpoints
 
-1. **GET <code>/api/neo<code>**:
+1. **GET <code>/api/neo</code>**
     - Fetches NEO data for the current day.
-2. **POST /api/neo**
+2. **POST <code>/api/neo</code>**
+    - Accepts a date range and retrieves NEO data for that range from the NASA NEO API.
+    - Request Body Example:
+    ```bash
+    {
+    "start_date": "2024-01-01",
+    "end_date": "2024-01-07"
+    }
+3. **GET <code>/api/neoObject</code>**
+    - Fetches details for a specific NEO object using its identifier.
+    - Response includes details like its orbit, size, and hazardous status.
+
 
 
 
