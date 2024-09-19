@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import '../static/neo.css';
 import NeoObject from './NeoObject';
-import OrbitPlot from './OrbitPlot'
+import OrbitPlot from './OrbitPlot';
+import NewsFeed from './NewsFeed';
+import DateRangePicker from './DateRangePicker';
 
 function Neo({ dateRange }) {
   const [message, setMessage] = useState('');
@@ -10,27 +12,20 @@ function Neo({ dateRange }) {
   const [loading, setLoading] = useState(true);
   const [formattedData, setFormattedData] = useState('');
   const [selectedObject, setSelectedObject] = useState(null);
-  const [isInitialLoad, setIsInitialLoad] = useState(true); // New state to handle initial load
+  const [selectedDateRange, setSelectedDateRange] = useState({ startDate: null, endDate: null });
 
   // Fetch data when dateRange changes or initial load
-  useEffect(() => {
-    fetchData();
-  }, [dateRange]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       let response;
-      if (isInitialLoad) {
-        // Initial load with GET request
-        response = await axios.get('http://127.0.0.1:5000/api/neo');
-        setIsInitialLoad(false); // Set to false after initial load
-      } else {
-        // Subsequent requests with POST request
+      if (dateRange.startDate && dateRange.endDate) {
         response = await axios.post('http://127.0.0.1:5000/api/neo', {
           start_date: dateRange.startDate.format('YYYY-MM-DD'),
           end_date: dateRange.endDate.format('YYYY-MM-DD')
         });
+      } else {
+        response = await axios.get('http://127.0.0.1:5000/api/neo');
       }
       setMessage(response.data.message);
       setData(response.data.data);
@@ -39,13 +34,15 @@ function Neo({ dateRange }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [dateRange]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   useEffect(() => {
     if (data) {
-      if (Array.isArray(data)) {
-        setFormattedData(JSON.stringify(data, null, 2));
-      } else if (typeof data === 'object') {
+      if (Array.isArray(data) || typeof data === 'object') {
         setFormattedData(JSON.stringify(data, null, 2));
       } else {
         setFormattedData('Data is not an object or array');
@@ -59,20 +56,35 @@ function Neo({ dateRange }) {
     setSelectedObject(object);
   };
 
+  const handleDateRangeChange = (startDate, endDate) => {
+    setSelectedDateRange({ startDate, endDate });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   if (data && Array.isArray(data)) {
-    console.log(data)
     return (
       <div id="data-wrapper">
+      <div className="date-range">      
+          <DateRangePicker         
+          onDateRangeChange={handleDateRangeChange} 
+        />
+      </div>
         <div id="near-earth-objs-wrapper">
           {data.map((object, index) => (
             <div
               id="near-earth-objs-container"
               key={object.id}
-              style={{ border: "1px solid black", marginBottom: "10px", padding: "10px", cursor: 'pointer' }}
+              style={{
+                border: '1px solid black',
+                marginBottom: '10px',
+                padding: '10px',
+                cursor: 'pointer',
+                backgroundColor: object.is_hazardous === 'yes' ? 'orange' : 'inherit',
+                color: object.is_hazardous === 'yes' ? 'black' : 'inherit'
+              }}
               onClick={() => handleClick(object)}
             >
               <h3 id="near-earth-objs-name">Object {index + 1}: {object.name}</h3>
@@ -90,6 +102,7 @@ function Neo({ dateRange }) {
         {selectedObject && (
           <NeoObject selectedObject={selectedObject} />
         )}
+        <NewsFeed />
       </div>
     );
   } else {

@@ -76,11 +76,12 @@ const NeoObject = ({ selectedObject }) => {
         return (
             <div id="user-obj-data-wrapper">
                 {loading && <p>Loading...</p>}
+                
                 <div className="orbit-chart">
-                    <PlotlyChart chartData={orbitImage} layout={{ autosize: true }} className="large-chart" />
+                    <PlotlyChart chartData={orbitImage} className="large-chart" />
                 </div>
-                <div className="user-approach-container">
-                    {/* Dropdowns for unit selection */}
+                
+                <div className="user-approach-container">                
                     <div className="unit-selectors">
                         <label>
                             

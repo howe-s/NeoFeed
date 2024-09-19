@@ -1,4 +1,3 @@
-// DateRangePicker.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../static/headerBar.css';
@@ -24,11 +23,10 @@ const DateRangePicker = ({ onDateRangeChange }) => {
         start_date: startDate.format('YYYY-MM-DD'),
         end_date: endDate.format('YYYY-MM-DD'),
       };
-      
+
       axios.post('http://127.0.0.1:5000/api/neo', data)
         .then((response) => {
           console.log('Data posted successfully:', response.data);
-          // Notify parent component about the selected date range
           onDateRangeChange(startDate, endDate);
         })
         .catch((error) => {
@@ -40,26 +38,23 @@ const DateRangePicker = ({ onDateRangeChange }) => {
   };
 
   return (
-    <header className="header-bar">
-      <h1>My Application</h1>
-      <div className="date-range-selector">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label="Start Date"
-            value={startDate}
-            onChange={handleStartDateChange}
-            renderInput={(params) => <input {...params} />}
-          />
-          <DatePicker
-            label="End Date"
-            value={endDate}
-            onChange={handleEndDateChange}
-            renderInput={(params) => <input {...params} />}
-          />
-        </LocalizationProvider>
-        <button onClick={handleSubmit}>Submit</button>
-      </div>
-    </header>
+    <div className="date-range-selector">
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          label="Start Date"
+          value={startDate}
+          onChange={handleStartDateChange}
+          renderInput={(params) => <input {...params} />}
+        />
+        <DatePicker
+          label="End Date"
+          value={endDate}
+          onChange={handleEndDateChange}
+          renderInput={(params) => <input {...params} />}
+        />
+      </LocalizationProvider>
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
   );
 };
 

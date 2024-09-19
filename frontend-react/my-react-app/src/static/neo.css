@@ -1,14 +1,16 @@
 /* NearEarthObjs.css */
 #near-earth-objs-wrapper {
-    max-height: 100vh;
+    max-height: 1000px;
     max-width: fit-content;
     /* display: flex;     */
     overflow-y: scroll;
     position: flex;
+    min-height: 100%;
 }
 
 #near-earth-objs-container {
     max-height: fit-content;    
+    min-width: fit-content;
     
 }
 
@@ -21,3 +23,6 @@
     min-height: fit-content;
 }
 
+.date-range {
+    max-height: 75px;
+  }

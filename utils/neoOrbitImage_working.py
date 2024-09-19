@@ -1,12 +1,13 @@
 import numpy as np
 import plotly.graph_objects as go
 from skyfield.constants import AU_KM
-from skyfield.api import load, EarthSatellite, wgs84
+from skyfield.api import load
 from scipy.constants import G
 from math import pi, sqrt, cos, sin
 from flask import Flask, jsonify
 from utils.satellite_positions import fetch_and_convert_tle_data
 from utils.satellite_positions import dict_list_to_tuples
+from utils.orbitPositions import get_planet_positions
 import json
 import os
 import time
@@ -17,32 +18,6 @@ mu_sun = 1.32712440018e11  # Gravitational parameter of the Sun in km^3/s^2
 
 from skyfield.api import load
 
-def get_planet_positions():
-    # Load the planetary ephemeris data
-    ts = load.timescale()
-    planets = load('de421.bsp')  # Load DE421 ephemeris data
-
-    # Define the timescale and current time
-    t = ts.now()
-
-    # Get the planets
-    earth, venus, mars = planets['earth'], planets['venus'], planets['mars']
-
-    # Get current positions
-    earth_pos = earth.at(t).position.au  # Position in astronomical units
-    venus_pos = venus.at(t).position.au
-    mars_pos = mars.at(t).position.au
-
-    # Convert AU to km
-    positions = {
-        'Sun': [0, 0, 0],
-        'Earth': [earth_pos[0] * AU_KM, earth_pos[1] * AU_KM, earth_pos[2] * AU_KM],
-        'Venus': [venus_pos[0] * AU_KM, venus_pos[1] * AU_KM, venus_pos[2] * AU_KM],
-        'Mars': [mars_pos[0] * AU_KM, mars_pos[1] * AU_KM, mars_pos[2] * AU_KM],
-    }
-    return positions
-
-
 def plot_orbit(orbital_data_list, orbiting_body):
     # print('body in image function', orbiting_body)
     fig = go.Figure()
@@ -50,20 +25,36 @@ def plot_orbit(orbital_data_list, orbiting_body):
     orbiting_planet = max(set(orbiting_body), key=orbiting_body.count)    
     # Get positions for the Sun and other planets
     planet_positions = get_planet_positions()
-    print(type(planet_positions))
-    satellite_positions = fetch_and_convert_tle_data()
+    # satellite_positions = fetch_and_convert_tle_data()
     # for satellite in satellite_positions:
-    #     # print(satellite)
-    parsed_dict = json.loads(satellite_positions)
-    for satellite in parsed_dict:
+    #     print(satellite)
+    # parsed_dict = json.loads(satellite_positions)
+    # print
+    # lte_data = dict_list_to_tuples(parsed_dict)
+    # print(type(lte_data))
 
-        print(satellite)
+    # Currently banned from NORAD lol
+    # for satellite_data in lte_data:
+    #     name = satellite_data[0]
+    #     semi_major_axis = float(satellite_data[1].split()[1])
+    #     eccentricity = float(satellite_data[1].split()[2])
+    #     # ... extract other elements similarly
 
-    
-    
+    #     # Create a Skyfield EarthSatellite object
+    #     satellite = sf.EarthSatellite(name, semi_major_axis, eccentricity, ...)
 
+    #     # Calculate position over time using Skyfield's methods
+    #     t = ts.now() + sf.timespan(hours=range(24))  # Example: 24 hours
+    #     positions = satellite.at(t).position.km
 
-
+    #     # Add satellite's orbit to the plot
+    #     fig.add_trace(go.Scatter3d(
+    #         x=positions.x,
+    #         y=positions.y,
+    #         z=positions.z,
+    #         mode='lines',
+    #         name=name
+    #     ))
     for orbital_data in orbital_data_list:
         # Extract orbital parameters from the data
         a = float(orbital_data['semi_major_axis']) * AU_KM  # Semi-major axis in km

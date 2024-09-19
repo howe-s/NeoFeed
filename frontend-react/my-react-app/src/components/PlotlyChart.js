@@ -15,8 +15,8 @@ const PlotlyChart = ({ chartData }) => {
   return (
     <Plot
       data={data}
-      layout={newLayout}
-      config={{ responsive: true }} // Optional: makes the plot responsive
+      layout={newLayout}      
+       // Optional: makes the plot responsive
     />
   );
 };

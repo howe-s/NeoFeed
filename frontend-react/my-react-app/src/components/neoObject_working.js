@@ -1,29 +1,42 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import '../static/neoObjectApproach.css';
+import React, { useEffect, useState, useRef } from 'react';
+import sanitizeHtml from 'sanitize-html';
+import '../static/neoObject.css';
+import PlotlyChart from './PlotlyChart';
 
 const NeoObject = ({ selectedObject }) => {
     const [approachData, setApproachData] = useState(null);
+    const [futureApproachData, setFutureApproachData] = useState(null);
+    const [pastApproachData, setPastApproachData] = useState(null);
     const [orbitData, setOrbitData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [identifier, setIdentifier] = useState(null);
+    const [orbitImage, setOrbitImage] = useState(null);
+    const [objectID, setObjectID] = useState(null);
+
+    // States for unit selection
+    const [distanceUnit, setDistanceUnit] = useState('kilometers');
+    const [velocityUnit, setVelocityUnit] = useState('kilometers_per_hour');
+
+    const nowRef = useRef(null); // Ref for the <p>Now</p> element
 
     useEffect(() => {
         const fetchData = async () => {
             if (selectedObject) {
                 setLoading(true);
                 setApproachData(null);
-                setOrbitData(null)
+                setOrbitData(null);
                 setIdentifier(null);
                 try {
                     const response = await axios.post('http://127.0.0.1:5000/api/neoObject', selectedObject);
-                    const dataArray = JSON.parse(response.data.data)
+                    const dataArray = JSON.parse(response.data.data);
                     setApproachData(dataArray.sorted_approaches);
-                    setOrbitData(dataArray.orbital_data)
-                    setMessage(response.data.message);
-                    setIdentifier(response.data.identifier)
-                    
+                    setFutureApproachData(dataArray.future_approaches);
+                    setPastApproachData(dataArray.past_approaches);
+                    setOrbitImage(dataArray.orbital_image); // Sanitize HTML
+                    setOrbitData(dataArray.orbital_data);
+                    setIdentifier(JSON.stringify(dataArray.object_id));
                 } catch (error) {
                     setMessage('Error occurred');
                 }
@@ -33,74 +46,91 @@ const NeoObject = ({ selectedObject }) => {
         fetchData();
     }, [selectedObject]); // Fetch data whenever selectedObject changes
 
-    // every time data is updated
+    // Scroll to the <p>Now</p> element when component mounts
     useEffect(() => {
-        if (approachData) {
-        console.log(approachData)
-        console.log(orbitData)
-
+        if (nowRef.current) {
+            nowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    }, [approachData]); // This triggers when 'data' changes
-    
+    }, [approachData]); // Trigger scroll when approachData changes
+
+    // Function to get the display value based on selected units
+    const getDisplayValue = (value, unit, type) => {
+        const units = {
+            distance: {
+                astronomical: 'astronomical',
+                kilometers: 'kilometers',
+                lunar: 'lunar',
+                miles: 'miles'
+            },
+            velocity: {
+                kilometers_per_hour: 'kilometers_per_hour',
+                kilometers_per_second: 'kilometers_per_second',
+                miles_per_hour: 'miles_per_hour'
+            }
+        };
+
+        return value[units[type][unit]]; // Directly use the value from the object
+    };
+
     if (approachData && Array.isArray(approachData)) {
         return (
             <div id="user-obj-data-wrapper">
-                {loading && <p>Loading...</p>}                
-
-                <div className="obj-orbit-data-container">
-                    {orbitData.map((item, index) => (
-                        <div key={index} className="obj-orbit-data">
-                            <p><strong>Orbit ID:</strong> {item.orbit_id}</p>
-                            <p><strong>Orbit Determination Date:</strong> {item.orbit_determination_date}</p>
-                            <p><strong>First Observation Date:</strong> {item.first_observation_date}</p>
-                            <p><strong>Last Observation Date:</strong> {item.last_observation_date}</p>
-                            <p><strong>Data Arc (in Days):</strong> {item.data_arc_in_days}</p>
-                            <p><strong>Observations Used:</strong> {item.observations_used}</p>
-                            <p><strong>Orbit Uncertainty:</strong> {item.orbit_uncertainty}</p>
-                            <p><strong>Minimum Orbit Intersection:</strong> {item.minimum_orbit_intersection}</p>
-                            <p><strong>Jupiter Tisserand Invariant:</strong> {item.jupiter_tisserand_invariant}</p>
-                            <p><strong>Epoch Osculation:</strong> {item.epoch_osculation}</p>
-                            <p><strong>Eccentricity:</strong> {item.eccentricity}</p>
-                            <p><strong>Semi-Major Axis:</strong> {item.semi_major_axis}</p>
-                            <p><strong>Inclination:</strong> {item.inclination}</p>
-                            <p><strong>Ascending Node Longitude:</strong> {item.ascending_node_longitude}</p>
-                            <p><strong>Orbital Period:</strong> {item.orbital_period}</p>
-                            <p><strong>Perihelion Distance:</strong> {item.perihelion_distance}</p>
-                            <p><strong>Perihelion Argument:</strong> {item.perihelion_argument}</p>
-                            <p><strong>Aphelion Distance:</strong> {item.aphelion_distance}</p>
-                            <p><strong>Perihelion Time:</strong> {item.perihelion_time}</p>
-                            <p><strong>Mean Anomaly:</strong> {item.mean_anomaly}</p>
-                            <p><strong>Mean Motion:</strong> {item.mean_motion}</p>
-                            <p><strong>Equinox:</strong> {item.equinox}</p>
-                            {/* <p><strong>Orbit Class Type:</strong> {item.orbit_class.orbit_class_type}</p>
-                            <p><strong>Orbit Class Description:</strong> {item.orbit_class.orbit_class_description}</p>
-                            <p><strong>Orbit Class Range:</strong> {item.orbit_class.orbit_class_range}</p> */}
-                        </div>
-                    ))}
+                {loading && <p>Loading...</p>}
+                
+                <div className="orbit-chart">
+                    <PlotlyChart chartData={orbitImage} className="large-chart" />
                 </div>
-                <div className="user-approach-data-container">
-                    {approachData.map((item, index) => (
-                        <div key={index} className="user-approach-data">
-                            <p><strong>Close Approach Date:</strong> {item.close_approach_date}</p>
-                            <p><strong>Full Date:</strong> {item.close_approach_date_full}</p>
-                            <p><strong>Miss Distance (Astronomical):</strong> {item.miss_distance.astronomical}</p>
-                            <p><strong>Miss Distance (Kilometers):</strong> {item.miss_distance.kilometers}</p>
-                            <p><strong>Miss Distance (Lunar):</strong> {item.miss_distance.lunar}</p>
-                            <p><strong>Miss Distance (Miles):</strong> {item.miss_distance.miles}</p>
-                            <p><strong>Orbiting Body:</strong> {item.orbiting_body}</p>
-                            <p><strong>Relative Velocity (km/h):</strong> {item.relative_velocity.kilometers_per_hour}</p>
-                            <p><strong>Relative Velocity (km/s):</strong> {item.relative_velocity.kilometers_per_second}</p>
-                            <p><strong>Relative Velocity (miles/h):</strong> {item.relative_velocity.miles_per_hour}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>    
-            
+                
+                <div className="user-approach-container">                
+                    <div className="unit-selectors">
+                        <label>
+                            
+                            <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}>
+                                <option value="astronomical">Astronomical</option>
+                                <option value="kilometers">Kilometers</option>
+                                <option value="lunar">Lunar</option>
+                                <option value="miles">Miles</option>
+                            </select>
+                        </label>
+                        <label>
+                            
+                            <select value={velocityUnit} onChange={(e) => setVelocityUnit(e.target.value)}>
+                                <option value="kilometers_per_hour">km/h</option>
+                                <option value="kilometers_per_second">km/s</option>
+                                <option value="miles_per_hour">miles/h</option>
+                            </select>
+                        </label>
+                    </div>
+                    
+                    <div className="past-approach-container">
+                        {pastApproachData.map((item, index) => (
+                            <div key={index} className="past-approach-data">
+                                <p><strong>Close Approach Date:</strong> {item.close_approach_date}</p>
+                                <p><strong>Full Date:</strong> {item.close_approach_date_full}</p>
+                                <p><strong>Miss Distance:</strong> {getDisplayValue(item.miss_distance, distanceUnit, 'distance')}</p>
+                                <p><strong>Orbiting Body:</strong> {item.orbiting_body}</p>
+                                <p><strong>Relative Velocity:</strong> {getDisplayValue(item.relative_velocity, velocityUnit, 'velocity')}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div><p ref={nowRef}>now</p></div>
+                    <div className="future-approach-container">
+                        {futureApproachData.map((item, index) => (
+                            <div key={index} className="future-approach-data">
+                                <p><strong>Close Approach Date:</strong> {item.close_approach_date}</p>
+                                <p><strong>Full Date:</strong> {item.close_approach_date_full}</p>
+                                <p><strong>Miss Distance:</strong> {getDisplayValue(item.miss_distance, distanceUnit, 'distance')}</p>
+                                <p><strong>Orbiting Body:</strong> {item.orbiting_body}</p>
+                                <p><strong>Relative Velocity:</strong> {getDisplayValue(item.relative_velocity, velocityUnit, 'velocity')}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>               
+            </div>
         );
     } else {
-        return 
+        return null;
     }
-    
 };
 
 export default NeoObject;

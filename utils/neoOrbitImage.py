@@ -85,15 +85,25 @@ def plot_orbit(orbital_data_list, orbiting_body):
             name=f'Orbit Path {orbital_data["orbit_id"]}'
         ))
 
-    # Set labels and title
+    # Set labels, title, and background color
     fig.update_layout(
-        scene=dict(
-            xaxis_title='X (km)',
-            yaxis_title='Y (km)',
-            zaxis_title='Z (km)',
-            aspectmode='data'  # Keeps the aspect ratio consistent
-        ),
-    )
+    scene=dict(
+        xaxis_title='X (km)',
+        yaxis_title='Y (km)',
+        zaxis_title='Z (km)',
+        aspectmode='data',  # Keeps the aspect ratio consistent
+        xaxis=dict(backgroundcolor="black", tickangle=45, tickfont=dict(size=10)),  # Adjust tick angle and font size
+        yaxis=dict(backgroundcolor="black", tickangle=45, tickfont=dict(size=10)),  # Adjust tick angle and font size
+        zaxis=dict(backgroundcolor="black", tickangle=45, tickfont=dict(size=10))  # Adjust tick angle and font size
+    ),
+    paper_bgcolor="black",  # Background outside the plot area
+    plot_bgcolor="black",  # Background inside the plot area
+    font=dict(color='white', size=12),  # Adjust font size for better visibility
+    margin=dict(l=50, r=50, b=50, t=50),  # Adjust margins for responsiveness
+    autosize=True,  # Adjust plot size dynamically based on container
+    # width=800,  # Set a default width for larger screens
+    # height=600,  # Set a default height for larger screens
+)
 
     # Convert the figure to JSON
     fig_json = fig.to_dict()
