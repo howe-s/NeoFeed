@@ -3,7 +3,7 @@ from flask import jsonify
 from config import API_KEY
 import json
 import time
-from backend.utils.neoOrbitImage import plot_orbit
+from utils.neoOrbitImage import plot_orbit
 
 def neoObject(identifier): 
     # print(identifier)

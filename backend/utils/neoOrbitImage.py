@@ -7,7 +7,7 @@ from math import pi, sqrt, cos, sin
 from flask import Flask, jsonify
 # from backend.utils.satellite_positions import fetch_and_convert_tle_data
 # from backend.utils.satellite_positions import dict_list_to_tuples
-from backend.utils.planetPositions import get_planet_positions
+from utils.planetPositions import get_planet_positions
 import json
 import os
 import time
