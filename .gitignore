@@ -24,7 +24,7 @@
 
 /backend/.idea
 /backend/__pycache__
-/backend/utils/__pycache__
+/backend/utils/__pycache__/
 
 # solar system
 .de421.bsp
