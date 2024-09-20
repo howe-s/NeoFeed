@@ -7,7 +7,7 @@ from math import pi, sqrt, cos, sin
 from flask import Flask, jsonify
 from utils.satellite_positions import fetch_and_convert_tle_data
 from utils.satellite_positions import dict_list_to_tuples
-from utils.orbitPositions import get_planet_positions
+from utils.planetPositions import get_planet_positions
 import json
 import os
 import time
@@ -18,11 +18,13 @@ mu_sun = 1.32712440018e11  # Gravitational parameter of the Sun in km^3/s^2
 
 from skyfield.api import load
 
-def plot_orbit(orbital_data_list, orbiting_body):
+def plot_orbit(orbital_data_list, selectedDate):
+    print('orbital_data_list', type(orbital_data_list))
     fig = go.Figure()
+    selectedTime = 'placeholder'
 
     # Get positions for the Sun and planets, with orbit trajectories
-    planet_positions = get_planet_positions()
+    planet_positions = get_planet_positions(selectedDate)
 
     # Define planet diameters for proportional sizing (in km)
     planet_sizes = {

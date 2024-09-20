@@ -1,13 +1,16 @@
 from skyfield.constants import AU_KM
 from skyfield.api import load
 
-def get_planet_positions():
+def get_planet_positions(selectedDate):
     # Load the planetary ephemeris data
     ts = load.timescale()
     planets = load('de421.bsp')  # Load DE421 ephemeris data
 
-    # Define the timescale and current time
-    t = ts.now()
+    if selectedDate == None:
+        # Define the timescale and current time
+        t = ts.now()
+    else:
+        t = ts.now()
 
     # Get the planets and the moon
     mercury = planets['mercury']

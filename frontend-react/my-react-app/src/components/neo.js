@@ -73,7 +73,7 @@ function Neo({ dateRange }) {
           {data.map((object, index) => (
             <div
               id={`near-earth-objs-container-${object.id}`} // Unique ID for each container
-              class='objs-container'
+              className='objs-container'
               key={object.id}
               style={{
                 // border: '1px solid black',

@@ -4,9 +4,15 @@ from utils.neoFeed import neo
 from config import API_KEY
 from utils.neoObjectApproach import neoObjectDataStructure
 from datetime import datetime, timedelta
+from utils.marsFeed import mars
+from utils.neoOrbitImage import plot_orbit
+import json
 
 app = Flask(__name__)
 CORS(app)
+
+# Store the orbital data from the previous route
+previous_orbital_data = None
 
 @app.route('/api/neo', methods=['GET', 'POST'])
 def neoData():
@@ -46,17 +52,51 @@ def neo_identifier():
         print('/api/neoObject', 'POST')
         response = request.get_json()
         identifier = response.get('id')
-        
+
         if not identifier:
             return jsonify({"error": "ID is required"}), 400
 
-        data = neoObjectDataStructure(identifier)        
+        data = neoObjectDataStructure(identifier)
+        # print(data)
         if data:
+            # Store the orbital data for the next route
+            global previous_orbital_data
+            previous_orbital_data = json.loads(data)  
             return jsonify(data=data, identifier=identifier)
         else:
             return jsonify({"error": "No data found"}), 404
     else:
         return jsonify({"error": "Method not allowed"}), 405
+    
+
+@app.route('/api/updatedChart', methods=['GET', 'POST'])
+def updated_chart():
+    if request.method == 'POST':
+        response = request.get_json()
+        selectedDate = response['date']           
+        orbital_data = previous_orbital_data['orbital_data']
+        # print(type(orbital_data[0]))
+        print(type(orbital_data))
+        # print(orbital_data['sorted_approaches'])
+        print(selectedDate)
+        # print(orbital_data['object_id'])
+        newChart = plot_orbit(orbital_data, selectedDate)
+        return {'message': 'Data received'}, 200  # Return a response for POST requests
+    else:
+        return {'message': 'Send a POST request'}, 200  # Return a response for GET requests
+
+
+
+        
+
+    
+@app.route('/api/mars', methods=['GET'])
+def marsData():
+
+    data = mars()
+    print(data)
+    
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True)
