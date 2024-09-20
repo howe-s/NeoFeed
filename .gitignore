@@ -22,7 +22,7 @@
 /backend/.DS_Store
 /backend/config.py
 
-/backend/.idea
+.idea
 /backend/__pycache__
 /backend/utils/__pycache__/
 
