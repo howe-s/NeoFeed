@@ -1,5 +1,6 @@
 from skyfield.constants import AU_KM
 from skyfield.api import load
+from datetime import datetime
 
 def get_planet_positions(selectedDate):
     # Load the planetary ephemeris data
@@ -11,6 +12,7 @@ def get_planet_positions(selectedDate):
         t = ts.now()
     else:
         t = ts.now()
+        print(selectedDate)
 
     # Get the planets and the moon
     mercury = planets['mercury']

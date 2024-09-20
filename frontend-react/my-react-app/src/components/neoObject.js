@@ -71,7 +71,9 @@ const NeoObject = ({ selectedObject }) => {
                     }
                 })
                 .then(response => {
-                    console.log('Data posted successfully:', response.data);
+                    console.log('Data posted successfully:', response.data.data);
+                    console.log('orbit image', orbitImage)
+                    setOrbitImage(response.data.data)
                 })
                 .catch(error => {
                     console.error('Error posting data:', error);

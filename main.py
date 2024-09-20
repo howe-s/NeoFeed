@@ -81,7 +81,7 @@ def updated_chart():
         print(selectedDate)
         # print(orbital_data['object_id'])
         newChart = plot_orbit(orbital_data, selectedDate)
-        return {'message': 'Data received'}, 200  # Return a response for POST requests
+        return jsonify(data=newChart), 200  # Return a response for POST requests
     else:
         return {'message': 'Send a POST request'}, 200  # Return a response for GET requests
 
