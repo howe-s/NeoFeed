@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from utils.neoFeed import neo
+from backend.utils.neoFeed import neo
 from config import API_KEY
-from utils.neoObjectApproach import neoObjectDataStructure
+from backend.utils.neoObjectApproach import neoObjectDataStructure
 from datetime import datetime, timedelta
-from utils.marsFeed import mars
-from utils.neoOrbitImage import plot_orbit
+from backend.utils.marsFeed import mars
+from backend.utils.neoOrbitImage import plot_orbit
 import json
 
 app = Flask(__name__)
