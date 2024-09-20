@@ -25,5 +25,5 @@ config.py
 .idea
 __pycache__
 
-# solar system data
+# solar system
 .de421.bsp
