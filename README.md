@@ -17,12 +17,12 @@ NeoFeed is a web application designed to retrieve and visualize data about near-
 NeoFeed/
 ├── app.py
 ├── requirements.txt
-├── backend/  # New directory for backend code
+├── backend/ 
 │   ├── utils/
 │   │   ├── neoFeed.py
 │   │   └── neoObjectApproach.py
         ...(rest of backend files)
-├── frontend/  # Existing directory for frontend code
+├── frontend/ 
 │   ├── public/
 │   │   └── index.html
 │   ├── src/
