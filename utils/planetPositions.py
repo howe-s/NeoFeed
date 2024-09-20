@@ -3,6 +3,8 @@ from skyfield.api import load
 from datetime import datetime
 
 def get_planet_positions(selectedDate):
+    print('test', selectedDate)
+    print(type(selectedDate))
     # Load the planetary ephemeris data
     ts = load.timescale()
     planets = load('de421.bsp')  # Load DE421 ephemeris data
@@ -11,8 +13,18 @@ def get_planet_positions(selectedDate):
         # Define the timescale and current time
         t = ts.now()
     else:
-        t = ts.now()
-        print(selectedDate)
+        t = ts.now()        
+        # # Sample date string
+        # date_str = selectedDate
+
+        # # Define the format of the input date string
+        # date_format = '%Y-%b-%d %H:%M'
+
+        # # Convert the string to a datetime object
+        # dt = datetime.strptime(date_str, date_format)
+
+        # print(dt)
+        # print(selectedDate)
 
     # Get the planets and the moon
     mercury = planets['mercury']

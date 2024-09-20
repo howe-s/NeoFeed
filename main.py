@@ -76,9 +76,9 @@ def updated_chart():
         selectedDate = response['date']           
         orbital_data = previous_orbital_data['orbital_data']
         # print(type(orbital_data[0]))
-        print(type(orbital_data))
+        # print(type(orbital_data))
         # print(orbital_data['sorted_approaches'])
-        print(selectedDate)
+        # print(selectedDate)
         # print(orbital_data['object_id'])
         newChart = plot_orbit(orbital_data, selectedDate)
         return jsonify(data=newChart), 200  # Return a response for POST requests
