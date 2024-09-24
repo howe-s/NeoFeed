@@ -2,6 +2,9 @@
 
 NeoFeed is a web application designed to retrieve and visualize data about near-Earth objects (NEOs) from NASA's NEO API. The application allows users to select a date range, fetch information about NEOs that passed by Earth during that time, and visualize their orbits.
 
+![image](https://github.com/user-attachments/assets/fed0b499-883b-49e2-8695-fc28605b6858)
+
+
 ## Table of Contents
 1. [Technologies Used](#technologies-used)
 2. [Project Structure](#project-structure)
@@ -107,10 +110,4 @@ NeoFeed/
 3. **GET <code>/api/neoObject</code>**
     - Fetches details for a specific NEO object using its identifier.
     - Response includes details like its orbit, size, and hazardous status.
-
-
-![image](https://github.com/user-attachments/assets/fed0b499-883b-49e2-8695-fc28605b6858)
-
-
-
 
