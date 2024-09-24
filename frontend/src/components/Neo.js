@@ -6,6 +6,7 @@ import OrbitPlot from './OrbitPlot';
 import NewsFeed from './NewsFeed';
 import DateRangePicker from './DateRangePicker';
 
+
 function Neo({ dateRange }) {
   const [message, setMessage] = useState('');
   const [data, setData] = useState(null);
@@ -39,13 +40,13 @@ function Neo({ dateRange }) {
     } finally {
       setLoading(false);
     }
-    // Dependency array 
+    // Dependency array ensures effect runs when dateRange changes
   }, [dateRange]);
 
   // useEffect to trigger data fetch on component mount and when fetchData changes
   useEffect(() => {
     fetchData(); // Recall the fetchData function to retrieve data from the API
-  }, [fetchData]); // Dependency array, ensures the effect runs when fetchData is updated
+  }, [fetchData]); // Dependency array 
   
   // useEffect to trigger when data state changes
   useEffect(() => {

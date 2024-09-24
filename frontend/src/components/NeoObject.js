@@ -3,7 +3,9 @@ import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import '../static/neoObject.css';
 import Chart from './ChartHandler'; // Import the new Chart component
 
+// Child component to Neo.js
 const NeoObject = ({ selectedObject }) => {
+    // Set initial states
     const [approachData, setApproachData] = useState(null);
     const [futureApproachData, setFutureApproachData] = useState(null);
     const [pastApproachData, setPastApproachData] = useState(null);
@@ -13,33 +15,44 @@ const NeoObject = ({ selectedObject }) => {
     const [velocityUnit, setVelocityUnit] = useState('kilometers_per_hour');
     const [closeApproachDate, setCloseApproachDate] = useState(null);
     const nowRef = useRef(null);
-
+    
+    // useEffect to update component when a selectedObject is posted to /api/neoObject
     useEffect(() => {
-        const fetchData = async () => {
+        // Asyncronous function  
+        const fetchData = async () => { 
+            // if selecctedObject state is passed from the Parent component           
             if (selectedObject) {
-                setLoading(true);
+                setLoading(true); // Set loading state to true
                 try {
+                    // main.py - Post the selectedObject data to /api/neoObject
                     const response = await axios.post('http://127.0.0.1:5000/api/neoObject', selectedObject);
+                    // Parse the API response 
                     const dataArray = JSON.parse(response.data.data);
+                    // Update state with the parsed data
                     setApproachData(dataArray.sorted_approaches);
                     setFutureApproachData(dataArray.future_approaches);
                     setPastApproachData(dataArray.past_approaches);
                     setOrbitImage(dataArray.orbital_image);
+                // Catch API resonse errors
                 } catch (error) {
                     console.error('Error occurred:', error);
                 }
-                setLoading(false);
+                setLoading(false); // Set loading state to false after fetching
             }
         };
+        // Trigger fetchData when selectedObject is updated
         fetchData();
+        // Dependency array ensures effect runs when selectedObject changes
     }, [selectedObject]);
 
+    // unused useEffect that centers the scroll in approach dates on the current date 
     useEffect(() => {
         if (nowRef.current) {
             nowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    }, [approachData]);
+    }, [approachData]); // Dependency array
 
+    // Callback function to obtain the display value for unit conversion
     const getDisplayValue = useCallback((value, unit, type) => {
         const units = {
             distance: {
@@ -57,34 +70,41 @@ const NeoObject = ({ selectedObject }) => {
         return value[units[type][unit]];
     }, []);
 
+    // Obtains user selected NEO object date and posts to /api/updatedChart 
     const captureCloseApproachDate = (approachType, index) => {
+        // Handles the two possible lists of approach data 
         const item = approachType === 'past' ? pastApproachData[index] : futureApproachData[index];
         if (item) {
+            // Extract the approach date
             const date = item.close_approach_date_full;
-            setCloseApproachDate(date);
-            console.log(`Close Approach Date set to: ${date}`);
-        
+            // setCloseApproachDate(date);
+            // console.log(`Close Approach Date set to: ${date}`);
+
+            // If successfully extracted 
             if (date) {
+                // Post the selected date to the route 
                 axios.post('/api/updatedChart', JSON.stringify({ date: date }), {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
+                // Update the orbitImage state with the new chart 
                 .then(response => {
                     console.log('Data posted successfully:', response.data.data);
                     console.log('orbit image', orbitImage)
                     setOrbitImage(response.data.data)
                 })
+                // Handle errors from the API
                 .catch(error => {
                     console.error('Error posting data:', error);
                 });
             } else {
-                console.warn('Close Approach Date is not set, not posting.');
+                console.warn('Close Approach Date is not set, not posting.'); // Error handle for extraction 
             }
         }        
         
     };
-
+    // Past NEO Approach Data
     const renderedPastApproaches = useMemo(() => {
         return pastApproachData?.map((item, index) => (
             <div key={index} className="past-approach-data" onClick={() => captureCloseApproachDate('past', index)}>
@@ -97,6 +117,7 @@ const NeoObject = ({ selectedObject }) => {
         ));
     }, [pastApproachData, distanceUnit, velocityUnit, getDisplayValue]);
 
+    // Future Neo Approach Data
     const renderedFutureApproaches = useMemo(() => {
         return futureApproachData?.map((item, index) => (
             <div key={index} className="future-approach-data" onClick={() => captureCloseApproachDate('future', index)}>
@@ -109,12 +130,16 @@ const NeoObject = ({ selectedObject }) => {
         ));
     }, [futureApproachData, distanceUnit, velocityUnit, getDisplayValue]);
 
+    // If the approachData state exists and is an Array
     if (approachData && Array.isArray(approachData)) {
         return (
             <div id="user-obj-data-wrapper">
                 {loading && <p>Loading...</p>}
-                <Chart chartData={orbitImage} /> {/* Use the Chart component here */}
 
+                {/* Render the Chart */}
+                <Chart chartData={orbitImage} /> 
+
+                {/* Render the Unit Selectors */}
                 <div className="unit-selectors">
                     <label>
                         <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}>
@@ -133,6 +158,7 @@ const NeoObject = ({ selectedObject }) => {
                     </label>
                 </div>
 
+                {/* Render the approachData */}
                 <div className="user-approach-container">
                     <div className="approach">
                         <div className="past-approach-container">
@@ -142,7 +168,8 @@ const NeoObject = ({ selectedObject }) => {
                             {renderedFutureApproaches}
                         </div>
                     </div>
-                </div>
+                </div> 
+                
             </div>
         );
     } else {
