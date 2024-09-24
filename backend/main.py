@@ -15,9 +15,10 @@ CORS(app)
 previous_orbital_data = None
 
 @app.route('/api/neo', methods=['GET', 'POST'])
-def neoData():
+def neo_data():
     if request.method == 'POST':
         response = request.get_json()
+        # Get NEO date range for API request
         start_date_str = response.get('start_date')
         end_date_str = response.get('end_date')
         
@@ -30,18 +31,18 @@ def neoData():
             end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
         except ValueError:
             return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
-
+        
+        # Calls NASA NEO API within a user selected date range and returns the data
         data = neo(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))        
         return jsonify(data=data)
     
     if request.method == 'GET':
-        # Default to the last 2 days if no date range is provided
+        # Default to today if no date range is provided
         today = datetime.now()
-        # yesterday = today - timedelta(days=1)
-        # two_days_ago = today - timedelta(days=2)
         start_date = today.strftime('%Y-%m-%d')
         end_date = today.strftime('%Y-%m-%d')
-        print('NeoData')
+
+        # Calls NASA NEO API for today's data and returns on initial mounting
         data = neo(start_date, end_date)
         return jsonify(data=data)
 
@@ -51,13 +52,15 @@ def neo_identifier():
     if request.method == 'POST':
         print('/api/neoObject', 'POST')
         response = request.get_json()
+        # Obtains the user selected NEO ID
         identifier = response.get('id')
 
         if not identifier:
             return jsonify({"error": "ID is required"}), 400
-
+        
+        # Calls NASA API for user selected NEO and constructs the orbital chart and approach data
         data = neoObjectDataStructure(identifier)
-        # print(data)
+        
         if data:
             # Store the orbital data for the next route
             global previous_orbital_data
@@ -80,6 +83,8 @@ def updated_chart():
         # print(orbital_data['sorted_approaches'])
         # print(selectedDate)
         # print(orbital_data['object_id'])
+
+        # Passes plot_orbit the existing orbital data, with a new user selectedDate for planetary positions 
         newChart = plot_orbit(orbital_data, selectedDate)
         return jsonify(data=newChart), 200  # Return a response for POST requests
     else:
@@ -91,7 +96,7 @@ def updated_chart():
 
     
 @app.route('/api/mars', methods=['GET'])
-def marsData():
+def mars_data():
 
     data = mars()
     print(data)
