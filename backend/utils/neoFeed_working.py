@@ -1,6 +1,6 @@
 # utils/neoFeed.py
 import requests
-from config import API_KEY
+from backend.config import API_KEY
 import time
 
 def neo(start_date, end_date):

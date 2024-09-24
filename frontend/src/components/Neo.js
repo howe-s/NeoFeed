@@ -19,30 +19,41 @@ function Neo({ dateRange }) {
     setLoading(true);
     try {
       let response;
+      // main.py - Handle cached userSelected dateRange by posting date range 
       if (dateRange.startDate && dateRange.endDate) {
         response = await axios.post('http://127.0.0.1:5000/api/neo', {
           start_date: dateRange.startDate.format('YYYY-MM-DD'),
           end_date: dateRange.endDate.format('YYYY-MM-DD')
         });
       } else {
+        // main.py - Default get  
         response = await axios.get('http://127.0.0.1:5000/api/neo');
       }
+      // Set response data to State 
       setMessage(response.data.message);
       setData(response.data.data);
+    // Catch errors in /api/neo response
     } catch (error) {
       console.error('Error fetching data:', error);
+    // Unmount component 
     } finally {
       setLoading(false);
     }
+    // Dependency array 
   }, [dateRange]);
 
+  // useEffect to trigger data fetch on component mount and when fetchData changes
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
+    fetchData(); // Recall the fetchData function to retrieve data from the API
+  }, [fetchData]); // Dependency array, ensures the effect runs when fetchData is updated
+  
+  // useEffect to trigger when data state changes
   useEffect(() => {
+    // If data state is not null
     if (data) {
+      // If the data returned is structured as an array object
       if (Array.isArray(data) || typeof data === 'object') {
+        // Update formattedData state with data 
         setFormattedData(JSON.stringify(data, null, 2));
       } else {
         setFormattedData('Data is not an object or array');
@@ -50,22 +61,25 @@ function Neo({ dateRange }) {
     } else {
       setFormattedData('No data available');
     }
+     // Dependency array
   }, [data]);
 
+  // Handle onClick
   const handleClick = (object) => {
     setSelectedObject(object);
   };
-
+  // Unused for now
   const handleDateRangeChange = (startDate, endDate) => {
     setSelectedDateRange({ startDate, endDate });
     console.log(selectedDateRange)
   };
-
+  // If component is still loading data  
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  // If data is loaded and is an Array
   if (data && Array.isArray(data)) {
+    // Construct NEO component 
     return (
       <div id="data-wrapper">
 
@@ -80,6 +94,7 @@ function Neo({ dateRange }) {
                 // marginBottom: '10px',
                 // padding: '10px',
                 cursor: 'pointer',
+                // If the NEO object is Hazardous, update CSS 
                 backgroundColor: object.is_hazardous ? '#FFFFE0' : 'inherit',
                 color: object.is_hazardous === 'Yes' ? 'black' : 'inherit',
                 

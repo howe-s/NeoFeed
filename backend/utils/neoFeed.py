@@ -18,14 +18,12 @@ def neo(start_date, end_date):
         
         # Prepare a list to store simplified objects
         simplified_data = []
-        current_epoch_ms = int(time.time() * 1000)
-        # Iterate through the near_earth_objectss
+        
+        # Iterate through the raw near_earth_objects list
         for date, objects in raw_data['near_earth_objects'].items():
-            # print(objects)
-            for obj in objects:
-                # print('object print', obj)
-                # if obj['close_approach_data'][0].get('epoch_date_close_approach') <  current_epoch_ms:
-                # Simplify each object and append it to the simplified_data list
+           # For each object in the raw data
+            for obj in objects:             
+               # Structure data for initial NEO list component 
                 simplified_data.append({
                     'name': obj.get('name'),
                     'id': obj.get('id'),

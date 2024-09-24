@@ -32,7 +32,7 @@ def neo_data():
         except ValueError:
             return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
         
-        # Calls NASA NEO API within a user selected date range and returns the data
+        # neoFeed.py - Calls NASA NEO API within a user selected date range and returns the data for the Neo.js list component 
         data = neo(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))        
         return jsonify(data=data)
     
@@ -42,7 +42,7 @@ def neo_data():
         start_date = today.strftime('%Y-%m-%d')
         end_date = today.strftime('%Y-%m-%d')
 
-        # Calls NASA NEO API for today's data and returns on initial mounting
+        # neoFeed.py - Calls NASA NEO API for today's data and returns on initial mounting
         data = neo(start_date, end_date)
         return jsonify(data=data)
 
@@ -58,9 +58,9 @@ def neo_identifier():
         if not identifier:
             return jsonify({"error": "ID is required"}), 400
         
-        # Calls NASA API for user selected NEO and constructs the orbital chart and approach data
+        # neoObjectApproach.py - Calls NASA API for user selected NEO and constructs data for NeoObject.js and child components
         data = neoObjectDataStructure(identifier)
-        
+        # If data was returned by the API 
         if data:
             # Store the orbital data for the next route
             global previous_orbital_data
@@ -76,7 +76,9 @@ def neo_identifier():
 def updated_chart():
     if request.method == 'POST':
         response = request.get_json()
-        selectedDate = response['date']           
+        # Get's date from user selected div state 
+        selectedDate = response['date'] 
+        # Call the stored orbital data in /api/neoObject (Avoids second API call)           
         orbital_data = previous_orbital_data['orbital_data']
         # print(type(orbital_data[0]))
         # print(type(orbital_data))
@@ -84,7 +86,7 @@ def updated_chart():
         # print(selectedDate)
         # print(orbital_data['object_id'])
 
-        # Passes plot_orbit the existing orbital data, with a new user selectedDate for planetary positions 
+        # neoOrbitImage.py - Constructs new chart for user selectedDate from NeoObject.js approach data, updating relative planetary positions for child-component PlotlyChart.js.  
         newChart = plot_orbit(orbital_data, selectedDate)
         return jsonify(data=newChart), 200  # Return a response for POST requests
     else:

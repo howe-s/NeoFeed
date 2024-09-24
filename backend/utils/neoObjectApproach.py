@@ -5,8 +5,9 @@ import json
 import time
 from utils.neoOrbitImage import plot_orbit
 
+# Call NASA API passing user selected NEO identifier 
 def neoObject(identifier): 
-    # print(identifier)
+    
     url = f'https://api.nasa.gov/neo/rest/v1/neo/{identifier}'
     params = {
         'api_key': API_KEY 
@@ -18,34 +19,34 @@ def neoObject(identifier):
 
     return response
 
-# all_approaches = []
-
+# Parse and construct userSelected NEO data
 def neoObjectDataStructure(identifier):
-    print('neoObjectDataStructure')
+    # Call API
     data = neoObject(identifier)
-    # print('data', data)
-    all_approaches = []
-    past_approaches = []
-    future_approaches = []
-    orbital_data = []
-    orbiting_body = []
+    # Construct initial lists for desired data  
+    all_approaches, past_approaches, future_approaches, orbital_data, orbiting_body = ([] for _ in range(5))
+    # Get the currend time in EPOCH
     current_epoch_ms = int(time.time() * 1000)
-    # Collect all close_approach_data entries
+    # Collect and append close_approach_data entries
     for approach in data['close_approach_data']:
+            # List of NEO close approach bodies 
             orbiting_body.append(approach['orbiting_body'], )
+            # List of all NEO approach dates and data
             all_approaches.append(approach)
+            # List of future approach dates
             if approach['epoch_date_close_approach'] >  current_epoch_ms:
                 future_approaches.append(approach)
+            # List of past approach dates
             if approach['epoch_date_close_approach'] <  current_epoch_ms:
                 past_approaches.append(approach)
-    
+    # NEO orbital data for Chart
     orbital_data.append(data['orbital_data'])
     
     # raw_orbital_image = plot_orbit(orbital_data, orbiting_body)
     # print(type(plot_orbit(orbital_data, orbiting_body)))
     # converted_orbital_image = json.dumps(plot_orbit(orbital_data))
     selectedDate = None
-
+    # Pass the unique data to neoOrbitImage.py - Returns a pre-rendered, deconstructed Plotly to pass to React-Plotly
     converted_orbital_image = plot_orbit(orbital_data, selectedDate)
     
     # print(converted_orbital_image)
@@ -57,7 +58,7 @@ def neoObjectDataStructure(identifier):
     # Sort the all_approaches list by epoch_date_close_approach
     # sorted_approaches = sorted(all_approaches, key=lambda x: x['epoch_date_close_approach'], reverse=True)
 
-    
+    # Construct data for userSelected NEO Object
     combined_data = {
     "object_id": identifier,
     "sorted_approaches": all_approaches,
@@ -68,11 +69,7 @@ def neoObjectDataStructure(identifier):
     }
 
     result = json.dumps(combined_data, indent=2)
-    test = json.loads(result)
-
-    # Print only the object_id
-    print(test["object_id"])
-
+    # Returns a JSON-formatted string representation of the dictionary
     return result
 
 
