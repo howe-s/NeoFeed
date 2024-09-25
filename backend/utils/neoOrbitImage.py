@@ -98,13 +98,14 @@ def plot_orbit(orbital_data_list, selectedDate):
         yaxis=dict(backgroundcolor="black", tickangle=45, tickfont=dict(size=10)),  # Adjust tick angle and font size
         zaxis=dict(backgroundcolor="black", tickangle=45, tickfont=dict(size=10))  # Adjust tick angle and font size
     ),
-    paper_bgcolor="black",  # Background outside the plot area
-    plot_bgcolor="black",  # Background inside the plot area
+    # paper_bgcolor="black",  # Background outside the plot area
+    # plot_bgcolor="black",  # Background inside the plot area
+    paper_bgcolor='rgba(0,0,0,0)',  # Set paper background to transparent
+    plot_bgcolor='rgba(0,0,0,0)',  # Set plot background to transparent
     font=dict(color='white', size=12),  # Adjust font size for better visibility
     margin=dict(l=50, r=50, b=50, t=50),  # Adjust margins for responsiveness
-    autosize=True,  # Adjust plot size dynamically based on container
-    # width=800,  # Set a default width for larger screens
-    # height=600,  # Set a default height for larger screens
+    # autosize=True,  # Adjust plot size dynamically based on container
+    width=1000
 )
 
     # Convert the figure to JSON

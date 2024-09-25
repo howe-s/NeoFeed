@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from utils.neoFeed import neo
+from utils.neoFeed import neoFeed
 from config import API_KEY
 from utils.neoObjectApproach import neoObjectDataStructure
 from datetime import datetime, timedelta
@@ -32,18 +32,17 @@ def neo_data():
         except ValueError:
             return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
         
-        # neoFeed.py - Calls NASA NEO API within a user selected date range and returns the data for the Neo.js list component 
-        data = neo(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))        
+        # neoFeed.py - NASA NEO API data for Neo.js 
+        data = neoFeed(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))        
         return jsonify(data=data)
     
     if request.method == 'GET':
-        # Default to today if no date range is provided
+        # Default to today
         today = datetime.now()
         start_date = today.strftime('%Y-%m-%d')
-        end_date = today.strftime('%Y-%m-%d')
+        end_date = today.strftime('%Y-%m-%d')        
+        data = neoFeed(start_date, end_date)
 
-        # neoFeed.py - Calls NASA NEO API for today's data and returns on initial mounting
-        data = neo(start_date, end_date)
         return jsonify(data=data)
 
 
@@ -58,39 +57,41 @@ def neo_identifier():
         if not identifier:
             return jsonify({"error": "ID is required"}), 400
         
-        # neoObjectApproach.py - Calls NASA API for user selected NEO and constructs data for NeoObject.js and child components
-        data = neoObjectDataStructure(identifier)
-        # If data was returned by the API 
+        # neoObjectApproach.py - NASA API data for NeoObject.js and Chart.js
+        data = neoObjectDataStructure(identifier)         
         if data:
-            # Store the orbital data for the next route
+            # Avoids second API call 
             global previous_orbital_data
             previous_orbital_data = json.loads(data)  
             return jsonify(data=data, identifier=identifier)
         else:
             return jsonify({"error": "No data found"}), 404
     else:
-        return jsonify({"error": "Method not allowed"}), 405
+        orbital_data = previous_orbital_data['orbital_data']
+        return jsonify(data=orbital_data)
+        
     
-
+# Working on this portion
 @app.route('/api/updatedChart', methods=['GET', 'POST'])
 def updated_chart():
     if request.method == 'POST':
-        response = request.get_json()
-        # Get's date from user selected div state 
+        response = request.get_json()        
         selectedDate = response['date'] 
-        # Call the stored orbital data in /api/neoObject (Avoids second API call)           
+
+        # Stored orbital data from /api/neoObject            
         orbital_data = previous_orbital_data['orbital_data']
+
         # print(type(orbital_data[0]))
         # print(type(orbital_data))
         # print(orbital_data['sorted_approaches'])
         # print(selectedDate)
         # print(orbital_data['object_id'])
 
-        # neoOrbitImage.py - Constructs new chart for user selectedDate from NeoObject.js approach data, updating relative planetary positions for child-component PlotlyChart.js.  
+        # neoOrbitImage.py - Constructs new chart for NeoObject.js  
         newChart = plot_orbit(orbital_data, selectedDate)
-        return jsonify(data=newChart), 200  # Return a response for POST requests
+        return jsonify(data=newChart)  
     else:
-        return {'message': 'Send a POST request'}, 200  # Return a response for GET requests
+        return {'message': 'Send a POST request'}, 200  
 
 
 

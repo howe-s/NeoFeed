@@ -118,8 +118,7 @@ function Neo({ dateRange }) {
               
               {selectedObject && selectedObject.id === object.id && (
                 <div id="neo-object-container">
-                  <NeoObject selectedObject={selectedObject} />
-                  {/* <p>test</p> */}
+                  <NeoObject selectedObject={selectedObject} />                 
                 </div>
               )}
               </div>

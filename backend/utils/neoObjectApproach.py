@@ -24,39 +24,25 @@ def neoObjectDataStructure(identifier):
     # Call API
     data = neoObject(identifier)
     # Construct initial lists for desired data  
-    all_approaches, past_approaches, future_approaches, orbital_data, orbiting_body = ([] for _ in range(5))
-    # Get the currend time in EPOCH
+    all_approaches, past_approaches, future_approaches, orbital_data, orbiting_body = ([] for _ in range(5))    
     current_epoch_ms = int(time.time() * 1000)
-    # Collect and append close_approach_data entries
-    for approach in data['close_approach_data']:
-            # List of NEO close approach bodies 
-            orbiting_body.append(approach['orbiting_body'], )
-            # List of all NEO approach dates and data
+   
+    for approach in data['close_approach_data']:           
+            orbiting_body.append(approach['orbiting_body'], )           
             all_approaches.append(approach)
-            # List of future approach dates
+           
             if approach['epoch_date_close_approach'] >  current_epoch_ms:
                 future_approaches.append(approach)
-            # List of past approach dates
+           
             if approach['epoch_date_close_approach'] <  current_epoch_ms:
                 past_approaches.append(approach)
     # NEO orbital data for Chart
-    orbital_data.append(data['orbital_data'])
+    orbital_data.append(data['orbital_data'])   
     
-    # raw_orbital_image = plot_orbit(orbital_data, orbiting_body)
-    # print(type(plot_orbit(orbital_data, orbiting_body)))
-    # converted_orbital_image = json.dumps(plot_orbit(orbital_data))
+    # Default State 
     selectedDate = None
-    # Pass the unique data to neoOrbitImage.py - Returns a pre-rendered, deconstructed Plotly to pass to React-Plotly
-    converted_orbital_image = plot_orbit(orbital_data, selectedDate)
-    
-    # print(converted_orbital_image)
-    # print(orbital_image)
-    # # To save the figure as an image file (e.g., PNG):
-    # orbital_image.write_image("orbit_plot.png")
-    
-        
-    # Sort the all_approaches list by epoch_date_close_approach
-    # sorted_approaches = sorted(all_approaches, key=lambda x: x['epoch_date_close_approach'], reverse=True)
+    # neoOrbitImage.py - Returns a pre-rendered, deconstructed Plotly for React-Plotly
+    converted_orbital_image = plot_orbit(orbital_data, selectedDate)       
 
     # Construct data for userSelected NEO Object
     combined_data = {

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import '../static/neoObject.css';
 import Chart from './ChartHandler'; // Import the new Chart component
 
 // Child component to Neo.js
@@ -20,37 +19,37 @@ const NeoObject = ({ selectedObject }) => {
     useEffect(() => {
         // Asyncronous function  
         const fetchData = async () => { 
-            // if selecctedObject state is passed from the Parent component           
+            // Passed from parent Neo.js          
             if (selectedObject) {
-                setLoading(true); // Set loading state to true
+                setLoading(true); 
                 try {
                     // main.py - Post the selectedObject data to /api/neoObject
-                    const response = await axios.post('http://127.0.0.1:5000/api/neoObject', selectedObject);
-                    // Parse the API response 
+                    const response = await axios.post('http://127.0.0.1:5000/api/neoObject', selectedObject);                   
                     const dataArray = JSON.parse(response.data.data);
-                    // Update state with the parsed data
+                   
                     setApproachData(dataArray.sorted_approaches);
                     setFutureApproachData(dataArray.future_approaches);
                     setPastApproachData(dataArray.past_approaches);
                     setOrbitImage(dataArray.orbital_image);
+
                 // Catch API resonse errors
                 } catch (error) {
                     console.error('Error occurred:', error);
                 }
-                setLoading(false); // Set loading state to false after fetching
+                setLoading(false); 
             }
         };
         // Trigger fetchData when selectedObject is updated
         fetchData();
-        // Dependency array ensures effect runs when selectedObject changes
-    }, [selectedObject]);
+        // Dependency array 
+    }, [selectedObject], setOrbitImage);
 
     // unused useEffect that centers the scroll in approach dates on the current date 
     useEffect(() => {
         if (nowRef.current) {
             nowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    }, [approachData]); // Dependency array
+    }, [approachData]);
 
     // Callback function to obtain the display value for unit conversion
     const getDisplayValue = useCallback((value, unit, type) => {
@@ -75,20 +74,20 @@ const NeoObject = ({ selectedObject }) => {
         // Handles the two possible lists of approach data 
         const item = approachType === 'past' ? pastApproachData[index] : futureApproachData[index];
         if (item) {
-            // Extract the approach date
+            
             const date = item.close_approach_date_full;
             // setCloseApproachDate(date);
             // console.log(`Close Approach Date set to: ${date}`);
 
-            // If successfully extracted 
+            
             if (date) {
-                // Post the selected date to the route 
+                // Post 
                 axios.post('/api/updatedChart', JSON.stringify({ date: date }), {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
-                // Update the orbitImage state with the new chart 
+                // Update orbitImage state with new chart data
                 .then(response => {
                     console.log('Data posted successfully:', response.data.data);
                     console.log('orbit image', orbitImage)
@@ -104,7 +103,7 @@ const NeoObject = ({ selectedObject }) => {
         }        
         
     };
-    // Past NEO Approach Data
+    // Sort
     const renderedPastApproaches = useMemo(() => {
         return pastApproachData?.map((item, index) => (
             <div key={index} className="past-approach-data" onClick={() => captureCloseApproachDate('past', index)}>
@@ -117,7 +116,7 @@ const NeoObject = ({ selectedObject }) => {
         ));
     }, [pastApproachData, distanceUnit, velocityUnit, getDisplayValue]);
 
-    // Future Neo Approach Data
+    // Sort
     const renderedFutureApproaches = useMemo(() => {
         return futureApproachData?.map((item, index) => (
             <div key={index} className="future-approach-data" onClick={() => captureCloseApproachDate('future', index)}>
@@ -133,7 +132,7 @@ const NeoObject = ({ selectedObject }) => {
     // If the approachData state exists and is an Array
     if (approachData && Array.isArray(approachData)) {
         return (
-            <div id="user-obj-data-wrapper">
+            <div className="user-obj-data-wrapper">
                 {loading && <p>Loading...</p>}
 
                 {/* Render the Chart */}
@@ -169,7 +168,7 @@ const NeoObject = ({ selectedObject }) => {
                         </div>
                     </div>
                 </div> 
-                
+
             </div>
         );
     } else {

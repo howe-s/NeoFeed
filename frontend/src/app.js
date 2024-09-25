@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Neo from './components/Neo';
 import OrbitPlot from './components/OrbitPlot';
-import './static/neo-App.css'; // Your styles here
-import DateRangePicker from './components/DateRangePicker'; // Ensure correct import
+import './static/neo-App.css'; 
+import DateRangePicker from './components/DateRangePicker'; 
 import NewsFeed from './components/NewsFeed';
 import Header from './components/Header'
 import Mars from './components/Mars'
+import Earth from './components/Earth'
 
 const App = () => {
   const [selectedComponent, setSelectedComponent] = useState('Neo');
@@ -23,11 +24,15 @@ const App = () => {
   return (
     <div className="neo-App">
       <Header onComponentChange={handleComponentChange}/>
-      <div className="date-range">
-          <DateRangePicker onDateRangeChange={handleDateRangeChange} />
-        </div>
-      {selectedComponent === 'Neo' && <Neo dateRange={selectedDateRange} />}
-      {selectedComponent === 'Mars' && <Mars dateRange={selectedDateRange} />}
+      <div className="app-Body">
+        <div className="date-range">
+            <DateRangePicker onDateRangeChange={handleDateRangeChange} />
+          </div>
+        {selectedComponent === 'Neo' && <Neo dateRange={selectedDateRange} />}
+        {selectedComponent === 'Earth' && <Earth dateRange={selectedDateRange} />}
+        {selectedComponent === 'Mars' && <Mars dateRange={selectedDateRange} />}
+        
+      </div>
     </div>
   );
 };

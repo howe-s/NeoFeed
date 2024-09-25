@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../static/headerBar.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
+
 // Initialize date range states
 const DateRangePicker = ({ onDateRangeChange }) => {
   const [startDate, setStartDate] = useState(null);
@@ -44,19 +45,19 @@ const DateRangePicker = ({ onDateRangeChange }) => {
     <div className="date-range-selector">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
-          label="Start Date"
+          // label="Start Date"
           value={startDate}
           onChange={handleStartDateChange}
           renderInput={(params) => <input {...params} />}
         />
         <DatePicker
-          label="End Date"
+          // label="End Date"
           value={endDate}
           onChange={handleEndDateChange}
           renderInput={(params) => <input {...params} />}
         />
       </LocalizationProvider>
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit} className="date-range-button">Submit</button>
     </div>
   );
 };

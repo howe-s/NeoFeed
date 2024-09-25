@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Chart } from 'chart.js'; // You'll need to install chart.js
+import { Chart } from 'chart.js'; // install chart.js
 
 const OrbitPlot = ({ orbital_data }) => {
   const [chartRef, setChartRef] = useState(null);
@@ -12,7 +12,7 @@ const OrbitPlot = ({ orbital_data }) => {
           labelString: 'Semi-Major Axis (AU)'
         },
         ticks: {
-          min: 0 // Set minimum based on your data
+          min: 0 // Set minimum 
         }
       }],
       yAxes: [{
@@ -21,8 +21,8 @@ const OrbitPlot = ({ orbital_data }) => {
           labelString: 'Inclination (deg)'
         },
         ticks: {
-          min: 0, // Set minimum based on your data
-          max: 180 // Set maximum based on your data
+          min: 0, // Set minimum 
+          max: 180 // Set maximum 
         }
       }]
     }

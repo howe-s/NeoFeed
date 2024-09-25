@@ -3,7 +3,7 @@ import requests
 from config import API_KEY
 import time
 
-def neo(start_date, end_date):
+def neoFeed(start_date, end_date):
     url = 'https://api.nasa.gov/neo/rest/v1/feed'
     params = {
         'start_date': start_date,
@@ -36,7 +36,7 @@ def neo(start_date, end_date):
                     'is_hazardous': obj.get('is_potentially_hazardous_asteroid'),
                     'nasa_jpl_url': obj.get('nasa_jpl_url'),
                 })
-
+            # Returns a list of simplified dictionaries containing NEO information for Neo.js
             return simplified_data
     else:
         return {'error': 'Failed to fetch data'}
