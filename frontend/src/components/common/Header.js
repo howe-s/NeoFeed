@@ -1,7 +1,7 @@
 import React from 'react';
 import DateRangePicker from '../common/DateRangePicker';
 
-const Header = ({ onComponentChange, onDateRangeChange }) => {
+const Header = ({ onComponentChange, activeComponent }) => {
   return (
     <header className="header-bar-container">
       <h1>NASA</h1>

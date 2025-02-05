@@ -1,0 +1,13 @@
+# Web Framework
+flask>=2.0.0
+flask-cors>=4.0.0
+
+# HTTP Requests
+requests>=2.31.0
+
+# Data Processing & Visualization
+numpy>=1.24.0
+matplotlib>=3.7.0
+
+# Date/Time handling is from Python's standard library
+# JSON handling is from Python's standard library 

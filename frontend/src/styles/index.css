@@ -27,7 +27,57 @@ code {
   left: 0;
   width: 100%;
   height: var(--header-height);
-  z-index: 1000; /* Ensures header stays on top */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* NASA Logo/Title */
+.header-bar-container h1 {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Navigation Links Container */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Navigation Buttons */
+.header-bar-container button {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.header-bar-container button:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 178, 255, 0.2);
+}
+
+/* Active Navigation Item */
+.header-bar-container button.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 /* Main Layout */
@@ -222,6 +272,23 @@ code {
   .past-approach-data,
   .future-approach-data {
     flex: 0 0 250px;
+  }
+
+  .header-bar-container {
+    padding: 0 1rem;
+  }
+
+  .header-bar-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .nav-links {
+    gap: 0.5rem;
+  }
+
+  .header-bar-container button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
 

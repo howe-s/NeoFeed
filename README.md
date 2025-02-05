@@ -113,6 +113,7 @@ The application features a modern, space-themed design with:
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Free use for educators and educational purposes.
 
 ## 🙏 Acknowledgments
 
@@ -122,7 +123,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
+Your Name - [@yourtwitter](https://twitter.com/howe_s_)
 
-Project Link: [https://github.com/yourusername/neofeed](https://github.com/yourusername/neofeed)
+Project Link: [https://github.com/howe-s/neofeed](https://github.com/howe-s/neofeed)
 
