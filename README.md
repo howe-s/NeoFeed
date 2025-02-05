@@ -1,113 +1,128 @@
-# NeoFeed Project
+# 🌠 NeoFeed - Near Earth Object Dashboard
 
-NeoFeed is a web application designed to retrieve and visualize data about near-Earth objects (NEOs) from NASA's NEO API. The application allows users to select a date range, fetch information about NEOs that passed by Earth during that time, and visualize their orbits.
+A modern, interactive dashboard for visualizing and tracking Near-Earth Objects (NEOs) using NASA's API. This application provides real-time data about asteroids and other celestial objects that pass near Earth, with detailed orbital visualizations and approach data.
 
-![image](https://github.com/user-attachments/assets/fed0b499-883b-49e2-8695-fc28605b6858)
+![NeoFeed Dashboard Preview](path-to-your-screenshot.png)
 
+## ✨ Features
 
-## Table of Contents
-1. [Technologies Used](#technologies-used)
-2. [Project Structure](#project-structure)
-3. [Features](#features)
-4. [Setup Instructions](#setup-instructions)
-5. [API Endpoints](#api-endpoints)
-6. [Usage](#usage)
-7. [Development Notes](#development-notes)
-8. [Future Improvements](#future-improvements)
+- **Real-time NEO Tracking**: Monitor near-Earth objects with data directly from NASA
+- **Interactive 3D Visualizations**: View orbital paths and trajectories using Plotly
+- **Date Range Selection**: Filter NEO data for specific time periods
+- **Hazard Identification**: Clear visual indicators for potentially hazardous objects
+- **Detailed Object Information**: Access comprehensive data about each NEO
+- **Responsive Design**: Modern, space-themed interface that works on all devices
 
-## Project Structure
-<code>
-NeoFeed/
-├── app.py
-├── requirements.txt
-├── backend/ 
-│   ├── utils/
-│   │   ├── neoFeed.py
-│   │   └── neoObjectApproach.py
-        ...(rest of backend files)
-├── frontend/ 
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ... (rest of frontend files)
-│   ├── static/
-│   │   └── neo.css
-├── templates/
-│   └── index.html
-├── README.md
-</code>
-
-## Technologies Used
-- **Frontend:**
-  - React (JavaScript)
-  - Axios (HTTP requests)
-  - Plotly.js (Orbit visualizations)
-  - MUI (Date pickers)
-  - CSS (Custom styling)
-
-- **Backend:**
-  - Python (Flask)
-  - NASA NEO API (for fetching NEO data)
-  - Skyfield (Planetary positions for orbit plots)
-  - Plotly (Python plotting for orbits)
-
-  ## Features
-- **Date Range Picker**: Users can select a start and end date to filter NEO data.
-- **NEO Data Fetching**: The app sends a request to NASA’s NEO API and retrieves data about near-Earth objects that passed Earth during the selected date range.
-- **Dynamic Visualization**: Users can click on a NEO to view its details and orbit plotted with Plotly.js.
-- **Orbit Animation**: NEOs' orbits are plotted with respect to Earth or other celestial bodies using accurate data from Skyfield.
-- **Hazardous Object Highlighting**: Potentially hazardous NEOs are highlighted in orange for easy identification.
-
-## Setup Instructions
+## 🚀 Getting Started
 
 ### Prerequisites
+
 - Python 3.8+
 - Node.js 14+
+- NASA API Key ([Get one here](https://api.nasa.gov/))
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/neofeed.git
+cd neofeed
+```
+
+2. **Set up the backend**
+```bash
+# Create and activate virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up environment variables
+cp .env.example .env
+# Add your NASA API key to .env
+```
+
+3. **Set up the frontend**
+```bash
+cd frontend
+npm install
+```
+
+### Running the Application
+
+1. **Start the backend server**
+```bash
+# From the root directory
+python backend/main.py
+```
+
+2. **Start the frontend development server**
+```bash
+# From the frontend directory
+npm start
+```
+
+The application will be available at `http://localhost:3000`
+
+## 🛠 Tech Stack
+
+### Frontend
+- React.js
+- Plotly.js for 3D visualizations
+- Material-UI components
+- Custom CSS with modern space theme
+- Axios for API communication
+
+### Backend
 - Flask
-- React
+- Python
+- NASA NEO API integration
+- Plotly for data processing
+- RESTful API architecture
 
-### Backend Setup
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/neofeed.git
+## 📊 API Endpoints
 
-2. **Install dependencies**:
-   ```bash
-   cd neofeed
-   pip install -r requirements.txt
+### NEO Data
+- `GET /api/neo` - Fetch current day's NEO data
+- `POST /api/neo` - Fetch NEO data for specific date range
+- `GET /api/neoObject/:id` - Fetch detailed information for specific NEO
 
-3. **Run the Flask server**
-   ```bash
-   export FLASK_APP=app.py
-   flask run
+### Visualization Data
+- `POST /api/updatedChart` - Generate new orbital visualization
+- `GET /api/mars` - Fetch Mars-related data
 
-### Frontend Setup
-1. **Navigate to the frontend directory**
-   ```bash
-   cd frontend
-   
-   
-2. **Install dependencies**:
-   ```bash
-   npm install
+## 🎨 Styling
 
-3. **Run the React app**
-   ```bash
-   npm start
+The application features a modern, space-themed design with:
+- Dark mode interface
+- Dynamic gradients
+- Interactive hover states
+- Responsive layouts
+- Hazard indicators
+- Smooth animations
 
-## API Endpoints
+## 🤝 Contributing
 
-1. **GET <code>/api/neo</code>**
-    - Fetches NEO data for the current day.
-2. **POST <code>/api/neo</code>**
-    - Accepts a date range and retrieves NEO data for that range from the NASA NEO API.
-    - Request Body Example:
-    ```bash
-    {
-        "start_date": "2024-01-01",
-        "end_date": "2024-01-07"
-    }
-3. **GET <code>/api/neoObject</code>**
-    - Fetches details for a specific NEO object using its identifier.
-    - Response includes details like its orbit, size, and hazardous status.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- NASA NEO API for providing the data
+- Plotly.js for visualization capabilities
+- The space science community for inspiration
+
+## 📧 Contact
+
+Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
+
+Project Link: [https://github.com/yourusername/neofeed](https://github.com/yourusername/neofeed)
 
