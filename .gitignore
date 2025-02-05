@@ -12,7 +12,7 @@
 /backend/.env.development.local
 /backend/.env.test.local
 /backend/.env.production.local
-
+.venv/
 # Logs
 /backend/npm-debug.log*
 /backend/yarn-debug.log*
