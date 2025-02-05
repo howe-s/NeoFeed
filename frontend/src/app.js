@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Neo from './components/Neo';
+import Neo from './components/neo/Neo';
 import OrbitPlot from './components/OrbitPlot';
-import './static/neo-App.css'; 
-import DateRangePicker from './components/DateRangePicker'; 
-import NewsFeed from './components/NewsFeed';
-import Header from './components/Header'
-import Mars from './components/Mars'
-import Earth from './components/Earth'
+import './styles/components/neo-App.css'; 
+import DateRangePicker from './components/common/DateRangePicker'; 
+import NewsFeed from './components/news/NewsFeed';
+import Header from './components/common/Header'
+import Mars from './components/planets/Mars'
+import Earth from './components/planets/Earth'
 
 const App = () => {
   const [selectedComponent, setSelectedComponent] = useState('Neo');

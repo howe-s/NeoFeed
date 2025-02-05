@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import './static/index.css';
+import './styles/index.css';
 import App from './app.js';
 import { DataProvider } from './components/DataContext';
 import reportWebVitals from './utils/reportWebVitals';
