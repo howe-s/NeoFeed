@@ -13,6 +13,9 @@
 /backend/.env.test.local
 /backend/.env.production.local
 .venv/
+.env
+.env.*
+
 # Logs
 /backend/npm-debug.log*
 /backend/yarn-debug.log*
@@ -22,10 +25,26 @@
 /backend/.DS_Store
 /backend/config.py
 
+# IDE files
 .idea
+.vscode
 .myenv
+
+# Python cache files
 /backend/__pycache__
 /backend/utils/__pycache__/
+*.pyc
+__pycache__/
+
+# Python virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env/
 
 # solar system
 de421.bsp
+
+# Dependencies
+node_modules/
