@@ -122,7 +122,7 @@ Free use for educators and educational purposes.
 
 ## 📧 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/howe_s_)
+Your Name - [@howe_s_](https://twitter.com/howe_s_)
 
 Project Link: [https://github.com/howe-s/neofeed](https://github.com/howe-s/neofeed)
 
