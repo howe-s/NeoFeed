@@ -1,3 +1,6 @@
+**Rebuilding with typescript**
+
+
 # 🌠 NeoFeed - Near Earth Object Dashboard
 
 A modern, interactive dashboard for visualizing and tracking Near-Earth Objects (NEOs) using NASA's API. This application provides real-time data about asteroids and other celestial objects that pass near Earth, with detailed orbital visualizations and approach data.
