@@ -1,4 +1,4 @@
-**Rebuilding with typescript**
+**Rebuilding with typescript** -- https://github.com/howe-s/neoFeedv2.0
 
 
 # 🌠 NeoFeed - Near Earth Object Dashboard
